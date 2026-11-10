@@ -1,0 +1,1900 @@
+<!DOCTYPE html><html lang="en"><head><meta name="x-poe-datastore-behavior" content="local_only"><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0F172A">
+    <title>CareConnect HK</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&amp;family=Playfair+Display:wght@700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['DM Sans', 'sans-serif'], display: ['Playfair Display', 'serif'] },
+                    colors: {
+                        pri: { 50:'#EEF0FF', 100:'#DFE3FF', 200:'#C5CAFF', 300:'#A2A6FF', 400:'#7B7AFF', 500:'#5D5CDE', 600:'#4A3FCC', 700:'#3D33B0', 800:'#342D8E', 900:'#1E1A5A' },
+                        sf: { 50:'#F8FAFC', 100:'#F1F5F9', 200:'#E2E8F0', 800:'#1E293B', 900:'#0F172A', 950:'#020617' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        *{-webkit-tap-highlight-color:transparent;box-sizing:border-box}
+        html,body{overscroll-behavior:none;font-family:'DM Sans',sans-serif;margin:0;padding:0}
+        body{padding-bottom:env(safe-area-inset-bottom)}
+        .app{max-width:430px;margin:0 auto;min-height:100dvh;position:relative;overflow-x:hidden}
+        .scr{display:none;animation:sUp .3s ease-out}
+        .scr.on{display:flex;flex-direction:column}
+        @keyframes sUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes pulse2{0%,100%{opacity:1}50%{opacity:.5}}
+        .bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;z-index:40;padding-bottom:env(safe-area-inset-bottom)}
+        .bnav .ni{transition:all .2s}
+        .bnav .ni.on i,.bnav .ni.on span{color:#5D5CDE}
+        .dark .bnav .ni.on i,.dark .bnav .ni.on span{color:#A2A6FF}
+        .ecard{transition:transform .15s}.ecard:active{transform:scale(.97)}
+        .savail{background:#DCFCE7;color:#166534}.dark .savail{background:#14532D;color:#86EFAC}
+        .sbusy{background:#FEF9C3;color:#854D0E}.dark .sbusy{background:#713F12;color:#FDE68A}
+        .bout{border-bottom-right-radius:4px!important}
+        .bin{border-bottom-left-radius:4px!important}
+        .splash{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;transition:opacity .5s}
+        .splash.hide{opacity:0;pointer-events:none}
+        .noscr::-webkit-scrollbar{display:none}.noscr{-ms-overflow-style:none;scrollbar-width:none}
+        input,select,textarea{font-size:16px!important}
+        .toast{animation:tIn .3s ease-out,tOut .3s ease-in 2.7s forwards}
+        @keyframes tIn{from{transform:translateY(100%);opacity:0}to{transform:translateY(0);opacity:1}}
+        @keyframes tOut{from{opacity:1}to{opacity:0}}
+        .mesh{background:radial-gradient(ellipse at 20% 50%,rgba(93,92,222,.12) 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(124,58,237,.08) 0%,transparent 50%)}
+        .dark .mesh{background:radial-gradient(ellipse at 20% 50%,rgba(93,92,222,.2) 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(124,58,237,.15) 0%,transparent 50%)}
+        .dlv1{border-left:3px solid #22c55e}.dlv2{border-left:3px solid #3b82f6}.dlv3{border-left:3px solid #f59e0b}.dlv4{border-left:3px solid #ef4444}
+        .wm-overlay{position:absolute;bottom:8px;left:8px;right:8px;padding:4px 8px;background:rgba(0,0,0,.55);color:#fff;font-size:9px;border-radius:6px;pointer-events:none}
+        video::-webkit-media-controls{display:none!important}
+    </style>
+</head>
+<body class="bg-sf-50 dark:bg-sf-950 text-gray-900 dark:text-gray-100">
+
+<!-- Splash -->
+<div id="splash" class="splash bg-sf-900">
+    <div class="text-center">
+        <div class="text-6xl mb-4" style="animation:pulse2 1.5s infinite">💜</div>
+        <h1 class="font-display text-3xl text-white mb-1">CareConnect</h1>
+        <p class="text-pri-300 text-sm tracking-widest uppercase">Hong Kong</p>
+    </div>
+</div>
+
+<div class="app bg-sf-50 dark:bg-sf-950">
+
+<!-- ============================== ROLE SELECT ============================== -->
+<div id="scr-role" class="scr on min-h-screen">
+    <div class="flex-1 flex flex-col items-center justify-center px-8 mesh">
+        <div class="text-5xl mb-4">💜</div>
+        <h1 class="font-display text-2xl mb-1 text-center">CareConnect HK</h1>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-8 text-center">Medical Escort Platform</p>
+        <p class="text-xs font-medium text-gray-400 uppercase tracking-wider mb-4">I am a...</p>
+        <div class="w-full space-y-3 max-w-xs">
+            <button onclick="selectRole('patient')" class="w-full bg-white dark:bg-sf-800 border-2 border-gray-200 dark:border-gray-700 rounded-2xl p-5 flex items-center gap-4 active:scale-95 transition-transform ecard">
+                <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/40 rounded-xl flex items-center justify-center text-2xl">👤</div>
+                <div class="text-left"><p class="font-medium">Patient</p><p class="text-xs text-gray-500">Book medical escorts</p></div>
+                <i class="fa-solid fa-chevron-right text-gray-300 ml-auto text-xs"></i>
+            </button>
+            <button onclick="selectRole('escort')" class="w-full bg-white dark:bg-sf-800 border-2 border-gray-200 dark:border-gray-700 rounded-2xl p-5 flex items-center gap-4 active:scale-95 transition-transform ecard">
+                <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/40 rounded-xl flex items-center justify-center text-2xl">🤝</div>
+                <div class="text-left"><p class="font-medium">Escort</p><p class="text-xs text-gray-500">Accept escort jobs</p></div>
+                <i class="fa-solid fa-chevron-right text-gray-300 ml-auto text-xs"></i>
+            </button>
+            <button onclick="selectRole('guardian')" class="w-full bg-white dark:bg-sf-800 border-2 border-gray-200 dark:border-gray-700 rounded-2xl p-5 flex items-center gap-4 active:scale-95 transition-transform ecard">
+                <div class="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/40 rounded-xl flex items-center justify-center text-2xl">👨‍👩‍👧</div>
+                <div class="text-left"><p class="font-medium">Guardian</p><p class="text-xs text-gray-500">Manage patient's bookings</p></div>
+                <i class="fa-solid fa-chevron-right text-gray-300 ml-auto text-xs"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ============================== REGISTER ============================== -->
+<div id="scr-register" class="scr min-h-screen pb-10">
+    <div class="sticky top-0 z-30 bg-sf-50/80 dark:bg-sf-950/80 backdrop-blur-xl px-5 pt-3 pb-2 flex items-center gap-3">
+        <button onclick="go('role')" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-sf-800 flex items-center justify-center"><i class="fa-solid fa-arrow-left text-sm"></i></button>
+        <h2 class="font-bold text-lg" id="reg-title">Create Account</h2>
+    </div>
+    <div class="px-5 pt-2 pb-8">
+        <form id="reg-form" onsubmit="handleRegister(event)" class="space-y-4">
+            <input type="hidden" name="role" id="reg-role-input">
+            <div class="grid grid-cols-2 gap-3">
+                <div><label class="text-xs font-medium text-gray-500 mb-1 block">First Name</label><input type="text" name="firstName" required="" class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none focus:ring-2 focus:ring-pri-500"></div>
+                <div><label class="text-xs font-medium text-gray-500 mb-1 block">Last Name</label><input type="text" name="lastName" required="" class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none focus:ring-2 focus:ring-pri-500"></div>
+            </div>
+            <div><label class="text-xs font-medium text-gray-500 mb-1 block">Email</label><input type="email" name="email" required="" class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none focus:ring-2 focus:ring-pri-500"></div>
+            <div><label class="text-xs font-medium text-gray-500 mb-1 block">Phone</label><input type="tel" name="phone" required="" class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none focus:ring-2 focus:ring-pri-500"></div>
+
+            <!-- Patient-only fields (minimal at registration — full details in Portal) -->
+            <div id="reg-patient-fields" class="hidden space-y-4">
+                <div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-3">
+                    <p class="text-xs text-blue-600 dark:text-blue-300"><i class="fa-solid fa-info-circle mr-1"></i>After registration, you'll complete your Medical Portal with disability level, addresses, and HA Go link before booking.</p>
+                </div>
+            </div>
+
+            <!-- Escort-only fields -->
+            <div id="reg-escort-fields" class="hidden space-y-4">
+                <div><label class="text-xs font-medium text-gray-500 mb-1 block">Experience</label>
+                    <select name="experience" class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none"><option value="none">None</option><option value="some">Some</option><option value="experienced">Experienced</option><option value="professional">Healthcare professional</option></select></div>
+                <div><label class="text-xs font-medium text-gray-500 mb-1 block">Languages</label>
+                    <div class="flex flex-wrap gap-3">
+                        <label class="flex items-center gap-2"><input type="checkbox" name="languages" value="cantonese" class="w-5 h-5 rounded accent-pri-500"><span class="text-sm">Cantonese</span></label>
+                        <label class="flex items-center gap-2"><input type="checkbox" name="languages" value="mandarin" class="w-5 h-5 rounded accent-pri-500"><span class="text-sm">Mandarin</span></label>
+                        <label class="flex items-center gap-2"><input type="checkbox" name="languages" value="english" class="w-5 h-5 rounded accent-pri-500"><span class="text-sm">English</span></label>
+                    </div></div>
+            </div>
+
+            <!-- Guardian-only fields -->
+            <div id="reg-guardian-fields" class="hidden space-y-4">
+                <div><label class="text-xs font-medium text-gray-500 mb-1 block">Relationship to Patient</label>
+                    <select name="relationship" class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none"><option>Son/Daughter</option><option>Spouse</option><option>Sibling</option><option>Other Family</option><option>Social Worker</option></select></div>
+                <div><label class="text-xs font-medium text-gray-500 mb-1 block">Patient Code to Link</label><input type="text" name="patientCodeLink" placeholder="Enter patient's code" class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none">
+                    <p class="text-[10px] text-gray-400 mt-1">Ask the patient for their Patient Code to link accounts.</p></div>
+            </div>
+
+            <button type="submit" class="w-full bg-pri-500 text-white py-3.5 rounded-2xl font-medium active:scale-95 transition-transform">Create Account</button>
+        </form>
+    </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- ==================== PATIENT SCREENS ======================= -->
+<!-- ============================================================ -->
+
+<!-- PATIENT HOME -->
+<div id="scr-p-home" class="scr min-h-screen pb-24">
+    <div class="sticky top-0 z-30 bg-sf-50/80 dark:bg-sf-950/80 backdrop-blur-xl px-5 pt-3 pb-2 flex items-center justify-between">
+        <div><h1 class="font-display text-xl text-pri-600 dark:text-pri-300">CareConnect</h1></div>
+        <div class="flex items-center gap-2">
+            <span class="text-[10px] bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300 px-2 py-1 rounded-full font-medium" id="p-code-badge">P-0000</span>
+            <button onclick="go('p-profile')" class="w-9 h-9 rounded-full bg-pri-100 dark:bg-pri-900 flex items-center justify-center"><i class="fa-solid fa-user text-pri-600 dark:text-pri-300 text-sm"></i></button>
+        </div>
+    </div>
+
+    <div class="px-5 pt-2 mesh pb-4">
+        <p class="text-gray-500 dark:text-gray-400 text-sm">Hello,</p>
+        <h2 class="font-display text-2xl mb-1" id="p-home-name">Patient</h2>
+        <div class="flex items-center gap-2 mt-1">
+            <span class="text-xs px-2 py-0.5 rounded-full bg-pri-100 dark:bg-pri-900 text-pri-600 dark:text-pri-300" id="p-home-dlvl">Lv 1 — Independent</span>
+        </div>
+    </div>
+
+    <!-- Guardian linked notice -->
+    <div id="p-guardian-notice" class="hidden mx-5 mt-3 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-2xl p-4">
+        <div class="flex items-center gap-3">
+            <i class="fa-solid fa-link text-emerald-500"></i>
+            <div><p class="text-sm font-medium text-emerald-700 dark:text-emerald-300">Guardian Linked</p><p class="text-[10px] text-emerald-600 dark:text-emerald-400">Your guardian manages bookings. Below is your next appointment info.</p></div>
+        </div>
+    </div>
+
+    <!-- Medical Portal Card -->
+    <div class="mx-5 mt-4" id="p-portal-card">
+        <button onclick="go('p-portal')" class="w-full bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm flex items-center gap-3 active:scale-[.98] transition-transform border-2 border-transparent" id="p-portal-card-inner">
+            <div class="w-11 h-11 rounded-xl flex items-center justify-center" id="p-portal-card-icon">
+                <i class="fa-solid fa-notes-medical text-lg"></i>
+            </div>
+            <div class="flex-1 text-left">
+                <p class="font-medium text-sm">Medical Portal</p>
+                <p class="text-[10px] text-gray-500" id="p-portal-card-sub">Patient code, disability level, HA Go &amp; more</p>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-[9px] px-2 py-0.5 rounded-full font-medium" id="p-portal-card-badge">Incomplete</span>
+                <i class="fa-solid fa-chevron-right text-gray-300 dark:text-gray-600 text-xs"></i>
+            </div>
+        </button>
+    </div>
+
+    <!-- HA Go Appointments -->
+    <div class="mx-5 mt-4">
+        <div class="flex items-center justify-between mb-2">
+            <h3 class="font-bold text-sm">HA Go Appointments</h3>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300"><i class="fa-solid fa-link text-[8px] mr-1"></i>Linked</span>
+        </div>
+        <div id="p-ha-appointments" class="space-y-2">
+            <div class="bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm dlv2">
+                <div class="flex items-center justify-between mb-1"><p class="font-medium text-sm">Cardiology Follow-up</p><span class="text-[10px] bg-blue-100 dark:bg-blue-900 text-blue-600 rounded-full px-2 py-0.5">Upcoming</span></div>
+                <p class="text-xs text-gray-500"><i class="fa-regular fa-calendar mr-1"></i>Tomorrow, 10:00 AM</p>
+                <p class="text-xs text-gray-500"><i class="fa-solid fa-hospital mr-1"></i>Queen Mary Hospital</p>
+                <button onclick="bookFromHA(0)" class="mt-2 text-xs text-pri-500 font-medium"><i class="fa-solid fa-plus mr-1"></i>Book Escort for This</button>
+            </div>
+            <div class="bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm dlv1">
+                <div class="flex items-center justify-between mb-1"><p class="font-medium text-sm">Orthopedic Review</p><span class="text-[10px] bg-gray-100 dark:bg-gray-700 text-gray-600 rounded-full px-2 py-0.5">Dec 28</span></div>
+                <p class="text-xs text-gray-500"><i class="fa-regular fa-calendar mr-1"></i>Dec 28, 2:00 PM</p>
+                <p class="text-xs text-gray-500"><i class="fa-solid fa-hospital mr-1"></i>Prince of Wales Hospital</p>
+                <button onclick="bookFromHA(1)" class="mt-2 text-xs text-pri-500 font-medium"><i class="fa-solid fa-plus mr-1"></i>Book Escort for This</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Current Booking -->
+    <div class="mx-5 mt-4" id="p-current-booking">
+        <h3 class="font-bold text-sm mb-2">Current Booking</h3>
+        <div id="p-active-booking" class="hidden">
+            <button onclick="go('active-appt')" class="w-full bg-gradient-to-r from-pri-500 to-purple-600 text-white rounded-2xl p-4 flex items-center gap-3 active:scale-[.98] transition-transform shadow-lg">
+                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center" style="animation:pulse2 2s infinite"><i class="fa-solid fa-location-dot"></i></div>
+                <div class="flex-1 text-left">
+                    <p class="font-medium text-sm">Active Escort Session</p>
+                    <p class="text-xs opacity-80" id="p-active-escort-info">Escort on the way</p>
+                </div>
+                <i class="fa-solid fa-chevron-right text-sm opacity-60"></i>
+            </button>
+        </div>
+        <div id="p-no-booking" class="bg-white dark:bg-sf-800 rounded-2xl p-6 text-center shadow-sm">
+            <i class="fa-regular fa-calendar-check text-3xl text-gray-300 mb-2"></i>
+            <p class="text-sm text-gray-500">No active booking</p>
+            <button onclick="go('p-book')" class="mt-3 text-xs bg-pri-500 text-white px-5 py-2 rounded-full">Book an Escort</button>
+        </div>
+    </div>
+
+    <!-- Booking Schedule -->
+    <div class="mx-5 mt-4 mb-4">
+        <h3 class="font-bold text-sm mb-2">Booking Schedule</h3>
+        <div id="p-schedule" class="space-y-2">
+            <div class="bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm">
+                <div class="flex items-center justify-between"><p class="font-medium text-sm">Cardiology — Queen Mary Hospital</p><span class="text-[10px] savail px-2 py-0.5 rounded-full">Confirmed</span></div>
+                <p class="text-xs text-gray-500 mt-1"><i class="fa-regular fa-calendar mr-1"></i>Tomorrow, 10:00 AM • Escort: Mary C.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PATIENT PORTAL — Medical Info & Patient Code -->
+<div id="scr-p-portal" class="scr min-h-screen pb-24">
+    <div class="sticky top-0 z-30 bg-sf-50/80 dark:bg-sf-950/80 backdrop-blur-xl px-5 pt-3 pb-2 flex items-center gap-3">
+        <button onclick="goBack()" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-sf-800 flex items-center justify-center"><i class="fa-solid fa-arrow-left text-sm"></i></button>
+        <h2 class="font-bold text-lg">Medical Portal</h2>
+        <span class="ml-auto text-[10px] px-2 py-1 rounded-full font-mono" id="portal-status-badge">Incomplete</span>
+    </div>
+
+    <div class="px-5 pt-2 pb-8 space-y-4">
+        <!-- Patient Code Card -->
+        <div class="bg-gradient-to-br from-pri-500 to-blue-600 rounded-2xl p-5 text-white text-center shadow-lg">
+            <p class="text-xs opacity-70 uppercase tracking-wider mb-1">Your Patient Code</p>
+            <p class="text-3xl font-bold tracking-wider font-mono" id="portal-code">P-0000</p>
+            <p class="text-[10px] opacity-60 mt-1">Share this code with your guardian or escort</p>
+        </div>
+
+        <!-- Incomplete Banner -->
+        <div id="portal-incomplete-banner" class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-3">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-triangle-exclamation text-amber-500"></i>
+                <p class="text-xs text-amber-700 dark:text-amber-300 font-medium">Please complete your medical info before booking an escort.</p>
+            </div>
+        </div>
+
+        <!-- Completed Banner -->
+        <div id="portal-complete-banner" class="hidden bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-xl p-3">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-check-circle text-emerald-500"></i>
+                <p class="text-xs text-emerald-700 dark:text-emerald-300 font-medium">Profile complete! You can now book escorts.</p>
+            </div>
+        </div>
+
+        <!-- Medical Information Form -->
+        <form id="portal-form" onsubmit="savePortal(event)" class="space-y-4">
+            <h3 class="font-bold text-sm text-gray-700 dark:text-gray-200"><i class="fa-solid fa-notes-medical text-pri-500 mr-1"></i>Medical Information</h3>
+
+            <div><label class="text-xs font-medium text-gray-500 mb-1 block">Disability Level <span class="text-red-400">*</span></label>
+                <select name="disabilityLevel" id="portal-dlvl" required="" class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none focus:ring-2 focus:ring-pri-500">
+                    <option value="">Select your level</option>
+                    <option value="1">Lv 1 — Independent</option>
+                    <option value="2">Lv 2 — Cane / Walking aids</option>
+                    <option value="3">Lv 3 — Simple wheelchair</option>
+                    <option value="4">Lv 4 — Wheelchair with vital equipment</option>
+                </select></div>
+
+            <div><label class="text-xs font-medium text-gray-500 mb-1 block">Medical Conditions / Notes</label>
+                <textarea name="medicalNotes" id="portal-medical" rows="2" placeholder="e.g. Diabetes, heart condition, medication allergies..." class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none focus:ring-2 focus:ring-pri-500 text-sm"></textarea></div>
+
+            <h3 class="font-bold text-sm text-gray-700 dark:text-gray-200 pt-2"><i class="fa-solid fa-location-dot text-pri-500 mr-1"></i>Address Information</h3>
+
+            <div><label class="text-xs font-medium text-gray-500 mb-1 block">Primary Address <span class="text-red-400">*</span></label>
+                <input type="text" name="primaryAddress" id="portal-addr1" required="" placeholder="Home address for pickup" class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none focus:ring-2 focus:ring-pri-500"></div>
+
+            <div><label class="text-xs font-medium text-gray-500 mb-1 block">Secondary Address (optional)</label>
+                <input type="text" name="secondaryAddress" id="portal-addr2" placeholder="Alternate pickup address" class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none focus:ring-2 focus:ring-pri-500"></div>
+
+            <h3 class="font-bold text-sm text-gray-700 dark:text-gray-200 pt-2"><i class="fa-solid fa-link text-pri-500 mr-1"></i>Linked Accounts</h3>
+
+            <div>
+                <label class="text-xs font-medium text-gray-500 mb-1 block">HA Go ID</label>
+                <div class="flex gap-2">
+                    <input type="text" name="haGoId" id="portal-hago" placeholder="Link your HA Go account" class="flex-1 px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none focus:ring-2 focus:ring-pri-500">
+                    <a href="https://www.ha.org.hk/hago/en-us/" target="_blank" class="flex items-center justify-center px-4 py-3 bg-green-500 text-white rounded-xl text-xs font-medium whitespace-nowrap active:scale-95 transition-transform"><i class="fa-solid fa-external-link-alt mr-1"></i>HA Go</a>
+                </div>
+                <p class="text-[10px] text-gray-400 mt-1">Link to sync your hospital appointments automatically.</p>
+            </div>
+
+            <div><label class="text-xs font-medium text-gray-500 mb-1 block">Guardian Code (optional)</label>
+                <input type="text" name="guardianCode" id="portal-guardian" placeholder="Enter guardian's G-XXXX code to link" class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none focus:ring-2 focus:ring-pri-500">
+                <p class="text-[10px] text-gray-400 mt-1">If linked, your guardian can manage bookings on your behalf.</p>
+            </div>
+
+            <button type="submit" id="portal-save-btn" class="w-full bg-pri-500 text-white py-3.5 rounded-2xl font-medium active:scale-95 transition-transform"><i class="fa-solid fa-check mr-1"></i>Save Medical Information</button>
+        </form>
+    </div>
+</div>
+
+<!-- PATIENT BOOK ESCORT -->
+<div id="scr-p-book" class="scr min-h-screen pb-10">
+    <div class="sticky top-0 z-30 bg-sf-50/80 dark:bg-sf-950/80 backdrop-blur-xl px-5 pt-3 pb-2 flex items-center gap-3">
+        <button onclick="goBack()" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-sf-800 flex items-center justify-center"><i class="fa-solid fa-arrow-left text-sm"></i></button>
+        <h2 class="font-bold text-lg">Book Escort</h2>
+    </div>
+
+    <!-- Portal Gate -->
+    <div id="book-gate" class="hidden px-5 pt-6 pb-8">
+        <div class="bg-amber-50 dark:bg-amber-900/20 border-2 border-amber-200 dark:border-amber-800 rounded-2xl p-6 text-center">
+            <i class="fa-solid fa-clipboard-list text-4xl text-amber-400 mb-3"></i>
+            <h3 class="font-bold text-base mb-1">Complete Your Medical Portal First</h3>
+            <p class="text-xs text-gray-500 mb-4">You need to fill in your disability level, address, and medical information before booking an escort.</p>
+            <button onclick="go('p-portal')" class="bg-pri-500 text-white px-6 py-3 rounded-xl text-sm font-medium active:scale-95 transition-transform"><i class="fa-solid fa-arrow-right mr-1"></i>Go to Medical Portal</button>
+        </div>
+    </div>
+
+    <!-- Booking Form (shown only when portal is complete) -->
+    <div id="book-form-wrap" class="px-5 pt-2 pb-8">
+        <form onsubmit="submitPatientBooking(event)" class="space-y-4">
+            <!-- Auto-filled from portal -->
+            <div class="bg-pri-50 dark:bg-pri-900/20 rounded-xl p-3 flex items-center gap-3">
+                <div class="w-8 h-8 bg-pri-100 dark:bg-pri-900 rounded-full flex items-center justify-center"><i class="fa-solid fa-wheelchair text-pri-500 text-xs"></i></div>
+                <div>
+                    <p class="text-xs font-medium" id="book-dlvl-display">Lv 1 — Independent</p>
+                    <p class="text-[10px] text-gray-400">From your Medical Portal</p>
+                </div>
+                <button type="button" onclick="go('p-portal')" class="ml-auto text-[10px] text-pri-500 font-medium">Edit</button>
+            </div>
+            <input type="hidden" name="disabilityLevel" id="book-dlvl">
+
+            <div><label class="text-xs font-medium text-gray-500 mb-1 block">Pickup Address</label>
+                <select name="pickupType" id="book-pickup-type" onchange="toggleBookAddr()" class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none mb-2">
+                    <option value="primary">Primary Address</option><option value="secondary">Secondary Address</option><option value="custom">Custom Address</option>
+                </select>
+                <input type="text" name="pickupAddress" id="book-addr" required="" placeholder="Pickup address" class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none">
+            </div>
+            <div><label class="text-xs font-medium text-gray-500 mb-1 block">Appointment Date</label><input type="date" name="date" required="" class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none"></div>
+            <div><label class="text-xs font-medium text-gray-500 mb-1 block">Appointment Time</label>
+                <select name="time" required="" class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none">
+                    <option value="">Select</option><option>8:00 AM</option><option>9:00 AM</option><option>10:00 AM</option><option>11:00 AM</option><option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option>
+                </select></div>
+            <div><label class="text-xs font-medium text-gray-500 mb-1 block">Hospital / Clinic</label>
+                <select name="hospital" id="book-hospital" required="" onchange="toggleCustomHospital('book')" class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none">
+                    <option value="">Select hospital</option>
+                    <optgroup label="Hong Kong Island">
+                        <option>Queen Mary Hospital</option>
+                        <option>Pamela Youde Nethersole Eastern Hospital</option>
+                        <option>Ruttonjee Hospital</option>
+                        <option>Tang Shiu Kin Hospital</option>
+                        <option>Tung Wah Hospital</option>
+                        <option>Grantham Hospital</option>
+                        <option>Duchess of Kent Children's Hospital</option>
+                    </optgroup>
+                    <optgroup label="Kowloon">
+                        <option>Queen Elizabeth Hospital</option>
+                        <option>Princess Margaret Hospital</option>
+                        <option>Kwong Wah Hospital</option>
+                        <option>United Christian Hospital</option>
+                        <option>Caritas Medical Centre</option>
+                        <option>Kowloon Hospital</option>
+                        <option>Our Lady of Maryknoll Hospital</option>
+                        <option>Tseung Kwan O Hospital</option>
+                        <option>Hong Kong Buddhist Hospital</option>
+                        <option>Hong Kong Eye Hospital</option>
+                    </optgroup>
+                    <optgroup label="New Territories">
+                        <option>Prince of Wales Hospital</option>
+                        <option>Alice Ho Miu Ling Nethersole Hospital</option>
+                        <option>Tuen Mun Hospital</option>
+                        <option>Pok Oi Hospital</option>
+                        <option>North District Hospital</option>
+                        <option>Yan Chai Hospital</option>
+                        <option>Tin Shui Wai Hospital</option>
+                        <option>North Lantau Hospital</option>
+                        <option>Haven of Hope Hospital</option>
+                    </optgroup>
+                    <optgroup label="Other">
+                        <option value="__other__">Other (enter manually)</option>
+                    </optgroup>
+                </select>
+                <input type="text" id="book-hospital-other" name="hospitalOther" placeholder="Enter hospital or clinic name" class="hidden w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none mt-2">
+            </div>
+            <div><label class="text-xs font-medium text-gray-500 mb-1 block">Notes (optional)</label><textarea name="notes" rows="2" placeholder="Special requirements" class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none"></textarea></div>
+
+            <!-- Choose Your Escort -->
+            <h3 class="font-bold text-sm text-gray-700 dark:text-gray-200 pt-1"><i class="fa-solid fa-user-nurse text-pri-500 mr-1"></i>Choose Your Escort</h3>
+            <p class="text-[10px] text-gray-400 -mt-2">Select an available escort for your appointment.</p>
+
+            <!-- Search & Filter -->
+            <div class="space-y-2 -mt-1">
+                <div class="relative">
+                    <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+                    <input type="text" id="escort-search" oninput="filterEscorts()" placeholder="Search by name, specialty, district..." class="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none text-sm focus:ring-2 focus:ring-pri-500">
+                </div>
+                <div class="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1" id="escort-filters">
+                    <button type="button" onclick="setEscortFilter('all')" class="esc-fbtn text-[10px] px-3 py-1.5 rounded-full whitespace-nowrap bg-pri-500 text-white font-medium" data-ef="all">All</button>
+                    <button type="button" onclick="setEscortFilter('available')" class="esc-fbtn text-[10px] px-3 py-1.5 rounded-full whitespace-nowrap bg-gray-100 dark:bg-sf-800 text-gray-600 dark:text-gray-300" data-ef="available">Available</button>
+                    <button type="button" onclick="setEscortFilter('experienced')" class="esc-fbtn text-[10px] px-3 py-1.5 rounded-full whitespace-nowrap bg-gray-100 dark:bg-sf-800 text-gray-600 dark:text-gray-300" data-ef="experienced">Experienced+</button>
+                    <button type="button" onclick="setEscortFilter('cantonese')" class="esc-fbtn text-[10px] px-3 py-1.5 rounded-full whitespace-nowrap bg-gray-100 dark:bg-sf-800 text-gray-600 dark:text-gray-300" data-ef="cantonese">Cantonese</button>
+                    <button type="button" onclick="setEscortFilter('english')" class="esc-fbtn text-[10px] px-3 py-1.5 rounded-full whitespace-nowrap bg-gray-100 dark:bg-sf-800 text-gray-600 dark:text-gray-300" data-ef="english">English</button>
+                    <button type="button" onclick="setEscortFilter('mandarin')" class="esc-fbtn text-[10px] px-3 py-1.5 rounded-full whitespace-nowrap bg-gray-100 dark:bg-sf-800 text-gray-600 dark:text-gray-300" data-ef="mandarin">Mandarin</button>
+                    <button type="button" onclick="setEscortFilter('toprated')" class="esc-fbtn text-[10px] px-3 py-1.5 rounded-full whitespace-nowrap bg-gray-100 dark:bg-sf-800 text-gray-600 dark:text-gray-300" data-ef="toprated">Top Rated</button>
+                </div>
+            </div>
+
+            <input type="hidden" name="selectedEscort" id="book-selected-escort" required="">
+            <div id="escort-selection-list" class="space-y-2">
+                <!-- Populated by JS -->
+            </div>
+            <div id="escort-no-results" class="hidden py-6 text-center">
+                <i class="fa-solid fa-user-slash text-2xl text-gray-300 mb-2"></i>
+                <p class="text-xs text-gray-400">No escorts match your search</p>
+            </div>
+            <div id="escort-none-selected" class="hidden bg-red-50 dark:bg-red-900/20 rounded-xl p-2 text-center">
+                <p class="text-xs text-red-500"><i class="fa-solid fa-exclamation-circle mr-1"></i>Please select an escort before booking.</p>
+            </div>
+
+            <button type="submit" class="w-full bg-pri-500 text-white py-3.5 rounded-2xl font-medium active:scale-95 transition-transform">Submit Booking Request</button>
+        </form>
+    </div>
+</div>
+
+<!-- PATIENT PROFILE -->
+<div id="scr-p-profile" class="scr min-h-screen pb-10">
+    <div class="sticky top-0 z-30 bg-sf-50/80 dark:bg-sf-950/80 backdrop-blur-xl px-5 pt-3 pb-2 flex items-center gap-3">
+        <button onclick="goBack()" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-sf-800 flex items-center justify-center"><i class="fa-solid fa-arrow-left text-sm"></i></button>
+        <h2 class="font-bold text-lg">My Profile</h2>
+    </div>
+    <div class="px-5 pt-4 space-y-4 pb-8">
+        <div class="bg-white dark:bg-sf-800 rounded-2xl p-5 text-center shadow-sm">
+            <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl">👤</div>
+            <h3 class="font-medium text-lg" id="pp-name">Patient</h3>
+            <p class="text-xs text-gray-500" id="pp-email">email</p>
+            <div class="mt-2 flex items-center justify-center gap-2">
+                <span class="text-xs bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 px-3 py-1 rounded-full font-medium" id="pp-code">P-0000</span>
+                <span class="text-xs bg-pri-100 dark:bg-pri-900 text-pri-600 dark:text-pri-300 px-3 py-1 rounded-full" id="pp-dlvl">Lv 1</span>
+            </div>
+        </div>
+        <div class="bg-white dark:bg-sf-800 rounded-2xl shadow-sm overflow-hidden">
+            <div class="px-5 py-4 border-b border-gray-100 dark:border-gray-700"><p class="text-xs text-gray-400">Primary Address</p><p class="text-sm" id="pp-addr1">—</p></div>
+            <div class="px-5 py-4 border-b border-gray-100 dark:border-gray-700"><p class="text-xs text-gray-400">Secondary Address</p><p class="text-sm" id="pp-addr2">—</p></div>
+            <div class="px-5 py-4 border-b border-gray-100 dark:border-gray-700"><p class="text-xs text-gray-400">HA Go</p><p class="text-sm" id="pp-hago">Not linked</p></div>
+            <div class="px-5 py-4"><p class="text-xs text-gray-400">Guardian</p><p class="text-sm" id="pp-guardian">Not linked</p></div>
+        </div>
+        <button onclick="go('p-portal')" class="w-full bg-pri-500 text-white py-3.5 rounded-2xl font-medium active:scale-95 transition-transform flex items-center justify-center gap-2"><i class="fa-solid fa-notes-medical"></i> Edit Medical Portal</button>
+        <button onclick="doLogout()" class="w-full py-3.5 rounded-2xl border-2 border-red-200 dark:border-red-900 text-red-500 font-medium active:scale-95 transition-transform">Sign Out</button>
+    </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- ==================== ESCORT SCREENS ======================== -->
+<!-- ============================================================ -->
+
+<!-- ESCORT HOME -->
+<div id="scr-e-home" class="scr min-h-screen pb-24">
+    <div class="sticky top-0 z-30 bg-sf-50/80 dark:bg-sf-950/80 backdrop-blur-xl px-5 pt-3 pb-2 flex items-center justify-between">
+        <div><h1 class="font-display text-xl text-pri-600 dark:text-pri-300">CareConnect</h1></div>
+        <div class="flex items-center gap-2">
+            <span class="text-[10px] bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-300 px-2 py-1 rounded-full font-medium" id="e-code-badge">E-0000</span>
+            <button onclick="go('e-profile')" class="w-9 h-9 rounded-full bg-pri-100 dark:bg-pri-900 flex items-center justify-center"><i class="fa-solid fa-user text-pri-600 dark:text-pri-300 text-sm"></i></button>
+        </div>
+    </div>
+
+    <div class="px-5 pt-2 mesh pb-4">
+        <p class="text-gray-500 dark:text-gray-400 text-sm">Welcome,</p>
+        <h2 class="font-display text-2xl mb-1" id="e-home-name">Escort</h2>
+    </div>
+
+    <!-- Emergency Booking Alert -->
+    <div class="mx-5 mt-2 mb-3">
+        <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-2xl p-4">
+            <div class="flex items-center gap-3 mb-2">
+                <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-white"><i class="fa-solid fa-bolt text-xs"></i></div>
+                <div><p class="font-medium text-sm text-red-700 dark:text-red-300">Emergency Request</p><p class="text-[10px] text-red-500">Urgent — Within 30 min</p></div>
+            </div>
+            <div class="bg-white dark:bg-sf-800 rounded-xl p-3 text-sm space-y-1">
+                <p><span class="text-gray-500">Patient:</span> <span class="font-medium">Mrs. Ho</span></p>
+                <p><span class="text-gray-500">Disability:</span> <span class="font-medium text-orange-600">Lv 3 — Wheelchair</span></p>
+                <p><span class="text-gray-500">Pickup:</span> <span class="font-medium">Sha Tin Centre</span></p>
+            </div>
+            <div class="flex gap-2 mt-3">
+                <button onclick="acceptEmergency()" class="flex-1 bg-red-500 text-white py-2.5 rounded-xl text-sm font-medium active:scale-95 transition-transform">Accept</button>
+                <button onclick="toast('Declined')" class="flex-1 border border-red-300 dark:border-red-700 text-red-500 py-2.5 rounded-xl text-sm font-medium active:scale-95 transition-transform">Decline</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Active Session -->
+    <div class="mx-5 mt-2 mb-3" id="e-active-session-wrap">
+        <div id="e-active-session" class="hidden">
+            <button onclick="go('active-appt')" class="w-full bg-gradient-to-r from-pri-500 to-purple-600 text-white rounded-2xl p-4 flex items-center gap-3 active:scale-[.98] transition-transform shadow-lg">
+                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center" style="animation:pulse2 2s infinite"><i class="fa-solid fa-location-dot"></i></div>
+                <div class="flex-1 text-left"><p class="font-medium text-sm">Active Escort Session</p><p class="text-xs opacity-80">Tap to view &amp; upload proof</p></div>
+                <i class="fa-solid fa-chevron-right text-sm opacity-60"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Today's Schedule -->
+    <div class="mx-5 mt-2">
+        <h3 class="font-bold text-sm mb-2">Today's Schedule</h3>
+        <div id="e-schedule" class="space-y-2">
+            <div class="bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm dlv2">
+                <div class="flex items-center justify-between mb-1"><p class="font-medium text-sm">Mrs. Lam</p><span class="text-[10px] savail px-2 py-0.5 rounded-full">10:00 AM</span></div>
+                <p class="text-xs text-gray-500"><i class="fa-solid fa-wheelchair mr-1"></i>Lv 2 — Cane • <i class="fa-solid fa-location-dot ml-1 mr-1"></i>Queen Mary Hospital</p>
+            </div>
+            <div class="bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm dlv1">
+                <div class="flex items-center justify-between mb-1"><p class="font-medium text-sm">Mr. Chan</p><span class="text-[10px] sbusy px-2 py-0.5 rounded-full">2:00 PM</span></div>
+                <p class="text-xs text-gray-500"><i class="fa-solid fa-person-walking mr-1"></i>Lv 1 — Independent • <i class="fa-solid fa-location-dot ml-1 mr-1"></i>Central Clinic</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Past Patients (frozen) -->
+    <div class="mx-5 mt-4 mb-4">
+        <h3 class="font-bold text-sm mb-2">Past Patients <span class="text-[10px] text-gray-400 font-normal">(Info frozen)</span></h3>
+        <div class="space-y-2">
+            <div class="bg-gray-50 dark:bg-sf-800/50 rounded-2xl p-4 opacity-70">
+                <div class="flex items-center justify-between"><p class="font-medium text-sm">Mr. Ng</p><span class="text-[10px] text-gray-400">Nov 28</span></div>
+                <p class="text-xs text-gray-400"><i class="fa-solid fa-lock text-[10px] mr-1"></i>Personal info restricted • Completed</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-sf-800/50 rounded-2xl p-4 opacity-70">
+                <div class="flex items-center justify-between"><p class="font-medium text-sm">Mrs. Lee</p><span class="text-[10px] text-gray-400">Nov 25</span></div>
+                <p class="text-xs text-gray-400"><i class="fa-solid fa-lock text-[10px] mr-1"></i>Personal info restricted • Completed</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ESCORT JOBS -->
+<div id="scr-e-jobs" class="scr min-h-screen pb-24">
+    <div class="sticky top-0 z-30 bg-sf-50/80 dark:bg-sf-950/80 backdrop-blur-xl px-5 pt-3 pb-2">
+        <h2 class="font-bold text-lg">Available Jobs</h2>
+        <div class="flex gap-2 mt-2">
+            <button onclick="filterJobs('all')" class="text-xs px-3 py-1.5 rounded-full bg-pri-500 text-white font-medium" id="jf-all">All</button>
+            <button onclick="filterJobs('regular')" class="text-xs px-3 py-1.5 rounded-full bg-gray-100 dark:bg-sf-800 text-gray-600 dark:text-gray-300" id="jf-regular">Regular</button>
+            <button onclick="filterJobs('onetime')" class="text-xs px-3 py-1.5 rounded-full bg-gray-100 dark:bg-sf-800 text-gray-600 dark:text-gray-300" id="jf-onetime">One-Time</button>
+        </div>
+    </div>
+    <div id="e-jobs-list" class="px-5 pt-3 space-y-3 pb-4">
+        <!-- Populated by JS -->
+    </div>
+</div>
+
+<!-- ESCORT PROFILE -->
+<div id="scr-e-profile" class="scr min-h-screen pb-10">
+    <div class="sticky top-0 z-30 bg-sf-50/80 dark:bg-sf-950/80 backdrop-blur-xl px-5 pt-3 pb-2 flex items-center gap-3">
+        <button onclick="goBack()" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-sf-800 flex items-center justify-center"><i class="fa-solid fa-arrow-left text-sm"></i></button>
+        <h2 class="font-bold text-lg">My Profile</h2>
+    </div>
+    <div class="px-5 pt-4 space-y-4 pb-8">
+        <div class="bg-white dark:bg-sf-800 rounded-2xl p-5 text-center shadow-sm">
+            <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl">🤝</div>
+            <h3 class="font-medium text-lg" id="ep-name">Escort</h3>
+            <p class="text-xs text-gray-500" id="ep-email">email</p>
+            <span class="text-xs bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 px-3 py-1 rounded-full font-medium inline-block mt-2" id="ep-code">E-0000</span>
+        </div>
+        <button onclick="doLogout()" class="w-full py-3.5 rounded-2xl border-2 border-red-200 dark:border-red-900 text-red-500 font-medium active:scale-95 transition-transform">Sign Out</button>
+    </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- ==================== GUARDIAN SCREEN ======================== -->
+<!-- ============================================================ -->
+<div id="scr-g-home" class="scr min-h-screen pb-10">
+    <div class="sticky top-0 z-30 bg-sf-50/80 dark:bg-sf-950/80 backdrop-blur-xl px-5 pt-3 pb-2 flex items-center justify-between">
+        <h1 class="font-display text-xl text-emerald-600 dark:text-emerald-300">Guardian Portal</h1>
+        <button onclick="doLogout()" class="text-xs text-red-500 font-medium">Sign Out</button>
+    </div>
+    <div class="px-5 pt-4 space-y-4 pb-8">
+        <div class="bg-white dark:bg-sf-800 rounded-2xl p-5 shadow-sm">
+            <div class="flex items-center gap-3 mb-3">
+                <div class="w-12 h-12 bg-emerald-100 dark:bg-emerald-900 rounded-full flex items-center justify-center text-2xl">👨‍👩‍👧</div>
+                <div><h3 class="font-medium" id="g-name">Guardian</h3><p class="text-xs text-gray-500" id="g-email">email</p></div>
+            </div>
+            <div class="bg-emerald-50 dark:bg-emerald-900/20 rounded-xl p-3">
+                <p class="text-xs text-emerald-600 dark:text-emerald-400"><i class="fa-solid fa-user mr-1"></i>Linked Patient: <span class="font-medium" id="g-linked-patient">—</span></p>
+            </div>
+        </div>
+
+        <h3 class="font-bold text-sm">Patient's HA Go Appointments</h3>
+        <div class="space-y-2">
+            <div class="bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm dlv2">
+                <div class="flex items-center justify-between mb-1"><p class="font-medium text-sm">Cardiology Follow-up</p><span class="text-[10px] savail px-2 py-0.5 rounded-full">Tomorrow</span></div>
+                <p class="text-xs text-gray-500">10:00 AM • Queen Mary Hospital</p>
+                <button onclick="guardianBook()" class="mt-2 text-xs bg-pri-500 text-white px-4 py-2 rounded-full active:scale-95 transition-transform"><i class="fa-solid fa-plus mr-1"></i>Book Escort</button>
+            </div>
+        </div>
+
+        <h3 class="font-bold text-sm">Manage Bookings</h3>
+        <div id="g-bookings" class="space-y-2">
+            <div class="bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm">
+                <div class="flex items-center justify-between"><p class="font-medium text-sm">Cardiology — QMH</p><span class="text-[10px] savail px-2 py-0.5 rounded-full">Confirmed</span></div>
+                <p class="text-xs text-gray-500 mt-1">Tomorrow, 10:00 AM • Escort: Mary C.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- GUARDIAN BOOK ESCORT -->
+<div id="scr-g-book" class="scr min-h-screen pb-10">
+    <div class="sticky top-0 z-30 bg-sf-50/80 dark:bg-sf-950/80 backdrop-blur-xl px-5 pt-3 pb-2 flex items-center gap-3">
+        <button onclick="goBack()" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-sf-800 flex items-center justify-center"><i class="fa-solid fa-arrow-left text-sm"></i></button>
+        <h2 class="font-bold text-lg">Book Escort for Patient</h2>
+    </div>
+    <div class="px-5 pt-2 pb-8">
+        <form onsubmit="submitGuardianBooking(event)" class="space-y-4">
+            <div><label class="text-xs font-medium text-gray-500 mb-1 block">Pickup Address</label>
+                <input type="text" name="pickupAddress" required="" placeholder="Patient pickup address" class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none"></div>
+            <div><label class="text-xs font-medium text-gray-500 mb-1 block">Appointment Date</label><input type="date" name="date" required="" class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none"></div>
+            <div><label class="text-xs font-medium text-gray-500 mb-1 block">Appointment Time</label>
+                <select name="time" required="" class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none">
+                    <option value="">Select</option><option>8:00 AM</option><option>9:00 AM</option><option>10:00 AM</option><option>11:00 AM</option><option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option>
+                </select></div>
+            <div><label class="text-xs font-medium text-gray-500 mb-1 block">Hospital / Clinic</label>
+                <select name="hospital" id="g-book-hospital" required="" onchange="toggleCustomHospital('g-book')" class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none">
+                    <option value="">Select hospital</option>
+                    <optgroup label="Hong Kong Island">
+                        <option>Queen Mary Hospital</option>
+                        <option>Pamela Youde Nethersole Eastern Hospital</option>
+                        <option>Ruttonjee Hospital</option>
+                        <option>Tang Shiu Kin Hospital</option>
+                        <option>Tung Wah Hospital</option>
+                        <option>Grantham Hospital</option>
+                        <option>Duchess of Kent Children's Hospital</option>
+                    </optgroup>
+                    <optgroup label="Kowloon">
+                        <option>Queen Elizabeth Hospital</option>
+                        <option>Princess Margaret Hospital</option>
+                        <option>Kwong Wah Hospital</option>
+                        <option>United Christian Hospital</option>
+                        <option>Caritas Medical Centre</option>
+                        <option>Kowloon Hospital</option>
+                        <option>Our Lady of Maryknoll Hospital</option>
+                        <option>Tseung Kwan O Hospital</option>
+                        <option>Hong Kong Buddhist Hospital</option>
+                        <option>Hong Kong Eye Hospital</option>
+                    </optgroup>
+                    <optgroup label="New Territories">
+                        <option>Prince of Wales Hospital</option>
+                        <option>Alice Ho Miu Ling Nethersole Hospital</option>
+                        <option>Tuen Mun Hospital</option>
+                        <option>Pok Oi Hospital</option>
+                        <option>North District Hospital</option>
+                        <option>Yan Chai Hospital</option>
+                        <option>Tin Shui Wai Hospital</option>
+                        <option>North Lantau Hospital</option>
+                        <option>Haven of Hope Hospital</option>
+                    </optgroup>
+                    <optgroup label="Other">
+                        <option value="__other__">Other (enter manually)</option>
+                    </optgroup>
+                </select>
+                <input type="text" id="g-book-hospital-other" name="hospitalOther" placeholder="Enter hospital or clinic name" class="hidden w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none mt-2">
+            </div>
+            <div><label class="text-xs font-medium text-gray-500 mb-1 block">Notes (optional)</label><textarea name="notes" rows="2" placeholder="Special requirements" class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none"></textarea></div>
+
+            <!-- Choose Escort -->
+            <h3 class="font-bold text-sm text-gray-700 dark:text-gray-200 pt-1"><i class="fa-solid fa-user-nurse text-emerald-500 mr-1"></i>Choose an Escort</h3>
+            <p class="text-[10px] text-gray-400 -mt-2">Select an escort for the patient's appointment.</p>
+
+            <!-- Search & Filter -->
+            <div class="space-y-2 -mt-1">
+                <div class="relative">
+                    <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+                    <input type="text" id="g-escort-search" oninput="filterGuardianEscorts()" placeholder="Search by name, specialty, district..." class="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none text-sm focus:ring-2 focus:ring-emerald-500">
+                </div>
+                <div class="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1" id="g-escort-filters">
+                    <button type="button" onclick="setGuardianEscortFilter('all')" class="gesc-fbtn text-[10px] px-3 py-1.5 rounded-full whitespace-nowrap bg-emerald-500 text-white font-medium" data-gef="all">All</button>
+                    <button type="button" onclick="setGuardianEscortFilter('available')" class="gesc-fbtn text-[10px] px-3 py-1.5 rounded-full whitespace-nowrap bg-gray-100 dark:bg-sf-800 text-gray-600 dark:text-gray-300" data-gef="available">Available</button>
+                    <button type="button" onclick="setGuardianEscortFilter('experienced')" class="gesc-fbtn text-[10px] px-3 py-1.5 rounded-full whitespace-nowrap bg-gray-100 dark:bg-sf-800 text-gray-600 dark:text-gray-300" data-gef="experienced">Experienced+</button>
+                    <button type="button" onclick="setGuardianEscortFilter('cantonese')" class="gesc-fbtn text-[10px] px-3 py-1.5 rounded-full whitespace-nowrap bg-gray-100 dark:bg-sf-800 text-gray-600 dark:text-gray-300" data-gef="cantonese">Cantonese</button>
+                    <button type="button" onclick="setGuardianEscortFilter('english')" class="gesc-fbtn text-[10px] px-3 py-1.5 rounded-full whitespace-nowrap bg-gray-100 dark:bg-sf-800 text-gray-600 dark:text-gray-300" data-gef="english">English</button>
+                    <button type="button" onclick="setGuardianEscortFilter('mandarin')" class="gesc-fbtn text-[10px] px-3 py-1.5 rounded-full whitespace-nowrap bg-gray-100 dark:bg-sf-800 text-gray-600 dark:text-gray-300" data-gef="mandarin">Mandarin</button>
+                    <button type="button" onclick="setGuardianEscortFilter('toprated')" class="gesc-fbtn text-[10px] px-3 py-1.5 rounded-full whitespace-nowrap bg-gray-100 dark:bg-sf-800 text-gray-600 dark:text-gray-300" data-gef="toprated">Top Rated</button>
+                </div>
+            </div>
+
+            <input type="hidden" name="selectedEscort" id="g-book-selected-escort" required="">
+            <div id="g-escort-selection-list" class="space-y-2">
+                <!-- Populated by JS -->
+            </div>
+            <div id="g-escort-no-results" class="hidden py-6 text-center">
+                <i class="fa-solid fa-user-slash text-2xl text-gray-300 mb-2"></i>
+                <p class="text-xs text-gray-400">No escorts match your search</p>
+            </div>
+            <div id="g-escort-none-selected" class="hidden bg-red-50 dark:bg-red-900/20 rounded-xl p-2 text-center">
+                <p class="text-xs text-red-500"><i class="fa-solid fa-exclamation-circle mr-1"></i>Please select an escort before booking.</p>
+            </div>
+
+            <button type="submit" class="w-full bg-emerald-500 text-white py-3.5 rounded-2xl font-medium active:scale-95 transition-transform">Submit Booking Request</button>
+        </form>
+    </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- ==================== ACTIVE APPOINTMENT ===================== -->
+<!-- ============================================================ -->
+<div id="scr-active-appt" class="scr min-h-screen pb-10">
+    <div class="sticky top-0 z-30 bg-sf-50/80 dark:bg-sf-950/80 backdrop-blur-xl px-5 pt-3 pb-2 flex items-center gap-3">
+        <button onclick="goBack()" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-sf-800 flex items-center justify-center"><i class="fa-solid fa-arrow-left text-sm"></i></button>
+        <h2 class="font-bold text-lg">Active Appointment</h2>
+        <span class="ml-auto text-[10px] bg-pri-100 dark:bg-pri-900 text-pri-600 dark:text-pri-300 px-2 py-1 rounded-full font-mono" id="aa-stage-badge">Stage 1/5</span>
+    </div>
+
+    <!-- ===== STAGE 1: Pickup Verification Code ===== -->
+    <div id="aa-stage-1" class="mx-5 mt-3">
+        <div class="bg-gradient-to-br from-pri-500 to-purple-600 rounded-2xl p-5 text-white shadow-lg">
+            <p class="text-xs opacity-70 uppercase tracking-wider mb-1 text-center">Stage 1 — Pickup Verification</p>
+            <p class="text-[10px] opacity-60 text-center mb-4">Enter the last 4 digits of the patient's phone number</p>
+            <div class="flex justify-center gap-3 mb-4">
+                <input type="text" maxlength="1" class="aa-code-digit w-14 h-14 text-center text-2xl font-bold rounded-xl bg-white/20 border-2 border-white/40 text-white placeholder-white/40 outline-none focus:border-white focus:bg-white/30" placeholder="·" oninput="onCodeDigit(this,0)">
+                <input type="text" maxlength="1" class="aa-code-digit w-14 h-14 text-center text-2xl font-bold rounded-xl bg-white/20 border-2 border-white/40 text-white placeholder-white/40 outline-none focus:border-white focus:bg-white/30" placeholder="·" oninput="onCodeDigit(this,1)">
+                <input type="text" maxlength="1" class="aa-code-digit w-14 h-14 text-center text-2xl font-bold rounded-xl bg-white/20 border-2 border-white/40 text-white placeholder-white/40 outline-none focus:border-white focus:bg-white/30" placeholder="·" oninput="onCodeDigit(this,2)">
+                <input type="text" maxlength="1" class="aa-code-digit w-14 h-14 text-center text-2xl font-bold rounded-xl bg-white/20 border-2 border-white/40 text-white placeholder-white/40 outline-none focus:border-white focus:bg-white/30" placeholder="·" oninput="onCodeDigit(this,3)">
+            </div>
+            <div id="aa-code-error" class="hidden text-center mb-3">
+                <p class="text-xs text-red-200 bg-red-500/30 rounded-lg py-1.5 px-3 inline-block"><i class="fa-solid fa-xmark mr-1"></i>Code does not match. Try again.</p>
+            </div>
+            <button onclick="verifyPickupCode()" id="aa-verify-btn" class="w-full bg-white text-pri-600 py-3 rounded-xl font-medium active:scale-95 transition-transform text-sm">Verify Code</button>
+            <div id="aa-code-success" class="hidden text-center mt-3">
+                <p class="text-xs text-emerald-200"><i class="fa-solid fa-check-circle mr-1"></i>Verified! Pickup confirmed.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== STAGE 2: Hospital Arrival — Photo Proof ===== -->
+    <div id="aa-stage-2" class="mx-5 mt-3 hidden">
+        <div class="bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm border-2 border-blue-200 dark:border-blue-800">
+            <div class="flex items-center gap-2 mb-2">
+                <div class="w-7 h-7 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center"><i class="fa-solid fa-hospital text-blue-500 text-[10px]"></i></div>
+                <h4 class="font-medium text-sm">Stage 2 — Hospital Arrival</h4>
+            </div>
+            <p class="text-xs text-gray-500 mb-3">Upload a watermarked photo proving arrival at the hospital.</p>
+            <div id="s2-preview" class="hidden mb-3 relative rounded-xl overflow-hidden">
+                <img id="s2-img" class="w-full h-40 object-cover" alt="arrival proof">
+                <div class="wm-overlay"><p id="s2-wm-text"></p></div>
+            </div>
+            <label id="s2-upload-btn" class="block w-full bg-blue-500 text-white py-3 rounded-xl text-sm font-medium text-center cursor-pointer active:scale-95 transition-transform">
+                <i class="fa-solid fa-camera mr-1"></i> Take Arrival Photo
+                <input type="file" accept="image/*" capture="environment" class="hidden" onchange="handleStagePhoto(event, 2)">
+            </label>
+            <div id="s2-done" class="hidden mt-2">
+                <p class="text-xs text-emerald-500 font-medium text-center mb-2"><i class="fa-solid fa-check-circle mr-1"></i>Arrival photo uploaded</p>
+                <button onclick="confirmStage(2)" class="w-full bg-emerald-500 text-white py-3 rounded-xl text-sm font-medium active:scale-95 transition-transform">Confirm Hospital Arrival</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== STAGE 3: During/Finished Appointment — Photo Proof ===== -->
+    <div id="aa-stage-3" class="mx-5 mt-3 hidden">
+        <div class="bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm border-2 border-amber-200 dark:border-amber-800">
+            <div class="flex items-center gap-2 mb-2">
+                <div class="w-7 h-7 bg-amber-100 dark:bg-amber-900 rounded-full flex items-center justify-center"><i class="fa-solid fa-stethoscope text-amber-500 text-[10px]"></i></div>
+                <h4 class="font-medium text-sm">Stage 3 — Appointment Proof</h4>
+            </div>
+            <p class="text-xs text-gray-500 mb-3">Upload a watermarked photo during or after the hospital appointment as evidence.</p>
+            <div id="s3-preview" class="hidden mb-3 relative rounded-xl overflow-hidden">
+                <img id="s3-img" class="w-full h-40 object-cover" alt="appointment proof">
+                <div class="wm-overlay"><p id="s3-wm-text"></p></div>
+            </div>
+            <label id="s3-upload-btn" class="block w-full bg-amber-500 text-white py-3 rounded-xl text-sm font-medium text-center cursor-pointer active:scale-95 transition-transform">
+                <i class="fa-solid fa-camera mr-1"></i> Take Appointment Photo
+                <input type="file" accept="image/*" capture="environment" class="hidden" onchange="handleStagePhoto(event, 3)">
+            </label>
+            <div id="s3-done" class="hidden mt-2">
+                <p class="text-xs text-emerald-500 font-medium text-center mb-2"><i class="fa-solid fa-check-circle mr-1"></i>Appointment photo uploaded</p>
+                <button onclick="confirmStage(3)" class="w-full bg-emerald-500 text-white py-3 rounded-xl text-sm font-medium active:scale-95 transition-transform">Confirm Appointment Complete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== STAGE 4: Patient Settle Down — Photo Proof ===== -->
+    <div id="aa-stage-4" class="mx-5 mt-3 hidden">
+        <div class="bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm border-2 border-emerald-200 dark:border-emerald-800">
+            <div class="flex items-center gap-2 mb-2">
+                <div class="w-7 h-7 bg-emerald-100 dark:bg-emerald-900 rounded-full flex items-center justify-center"><i class="fa-solid fa-house-chimney text-emerald-500 text-[10px]"></i></div>
+                <h4 class="font-medium text-sm">Stage 4 — Patient Settled</h4>
+            </div>
+            <p class="text-xs text-gray-500 mb-3">Upload a watermarked photo proving patient has safely arrived at the drop-off location.</p>
+            <div id="s4-preview" class="hidden mb-3 relative rounded-xl overflow-hidden">
+                <img id="s4-img" class="w-full h-40 object-cover" alt="settle proof">
+                <div class="wm-overlay"><p id="s4-wm-text"></p></div>
+            </div>
+            <label id="s4-upload-btn" class="block w-full bg-emerald-500 text-white py-3 rounded-xl text-sm font-medium text-center cursor-pointer active:scale-95 transition-transform">
+                <i class="fa-solid fa-camera mr-1"></i> Take Drop-off Photo
+                <input type="file" accept="image/*" capture="environment" class="hidden" onchange="handleStagePhoto(event, 4)">
+            </label>
+            <div id="s4-done" class="hidden mt-2">
+                <p class="text-xs text-emerald-500 font-medium text-center mb-2"><i class="fa-solid fa-check-circle mr-1"></i>Drop-off photo uploaded</p>
+                <button onclick="confirmStage(4)" class="w-full bg-emerald-500 text-white py-3 rounded-xl text-sm font-medium active:scale-95 transition-transform">Confirm Patient Settled Safely</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== STAGE 5: Summary Log ===== -->
+    <div id="aa-stage-5" class="mx-5 mt-3 hidden">
+        <div class="bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm border-2 border-purple-200 dark:border-purple-800">
+            <div class="flex items-center gap-2 mb-1">
+                <div class="w-7 h-7 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center"><i class="fa-solid fa-clipboard-list text-purple-500 text-[10px]"></i></div>
+                <h4 class="font-medium text-sm">Stage 5 — Summary Log</h4>
+            </div>
+            <p class="text-xs text-gray-500 mb-1">Complete within <span class="font-bold text-red-500" id="aa-countdown">5:00:00</span></p>
+            <p class="text-[10px] text-gray-400 mb-4">This summary will be shared with the patient / guardian for review.</p>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="text-xs font-bold text-gray-600 dark:text-gray-300 mb-1 block"><span class="text-pri-500 mr-1">1.</span>What was done during the hospital appointment?</label>
+                    <textarea id="sum-done" rows="3" placeholder="Describe the procedures, tests, or consultations that took place..." class="w-full px-4 py-3 bg-gray-50 dark:bg-sf-900 border border-gray-200 dark:border-gray-700 rounded-xl outline-none focus:ring-2 focus:ring-pri-500 text-sm"></textarea>
+                </div>
+                <div>
+                    <label class="text-xs font-bold text-gray-600 dark:text-gray-300 mb-1 block"><span class="text-amber-500 mr-1">2.</span>Important notes from doctor / nurse</label>
+                    <p class="text-[10px] text-gray-400 mb-1">What the patient should be aware of, or what the guardian must be notified about.</p>
+                    <textarea id="sum-notes" rows="3" placeholder="e.g. New medication prescribed, diet restrictions, warning signs to watch for..." class="w-full px-4 py-3 bg-gray-50 dark:bg-sf-900 border border-gray-200 dark:border-gray-700 rounded-xl outline-none focus:ring-2 focus:ring-pri-500 text-sm"></textarea>
+                </div>
+                <div>
+                    <label class="text-xs font-bold text-gray-600 dark:text-gray-300 mb-1 block"><span class="text-emerald-500 mr-1">3.</span>Call to Action — Future to-dos</label>
+                    <p class="text-[10px] text-gray-400 mb-1">Follow-up appointments, medication schedules, exercises, etc.</p>
+                    <textarea id="sum-actions" rows="3" placeholder="e.g. Next appointment on Jan 15, take medication twice daily, blood test in 2 weeks..." class="w-full px-4 py-3 bg-gray-50 dark:bg-sf-900 border border-gray-200 dark:border-gray-700 rounded-xl outline-none focus:ring-2 focus:ring-pri-500 text-sm"></textarea>
+                </div>
+            </div>
+
+            <button onclick="submitSummaryLog()" id="aa-submit-log-btn" class="w-full bg-pri-500 text-white py-3.5 rounded-xl text-sm font-medium mt-4 active:scale-95 transition-transform">Submit Summary Log</button>
+            <div id="aa-log-done" class="hidden mt-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl p-4 text-center">
+                <i class="fa-solid fa-check-circle text-2xl text-emerald-500 mb-2"></i>
+                <p class="text-sm font-medium text-emerald-700 dark:text-emerald-300">Summary submitted!</p>
+                <p class="text-[10px] text-emerald-600 dark:text-emerald-400">Patient / Guardian will be notified for review.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PROGRESS TRACKER (always visible) ===== -->
+    <div class="mx-5 mt-4 bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm">
+        <h4 class="font-medium text-xs text-gray-400 mb-3 uppercase tracking-wider">Progress Tracker</h4>
+        <div class="space-y-2" id="aa-progress">
+            <div class="flex items-center gap-3" id="pr-1"><div class="w-7 h-7 rounded-full flex items-center justify-center bg-pri-100 dark:bg-pri-900" style="animation:pulse2 2s infinite" id="pr-1-icon"><i class="fa-solid fa-arrow-right text-pri-600 dark:text-pri-300 text-[10px]"></i></div><div><p class="text-sm font-medium">Pickup Verification</p><p class="text-[10px] text-gray-500" id="pr-1-status">Waiting for code entry</p></div></div>
+            <div class="flex items-center gap-3 opacity-40" id="pr-2"><div class="w-7 h-7 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-700" id="pr-2-icon"><i class="fa-solid fa-circle text-gray-400 text-[6px]"></i></div><div><p class="text-sm font-medium">Hospital Arrival</p><p class="text-[10px] text-gray-500" id="pr-2-status">Pending</p></div></div>
+            <div class="flex items-center gap-3 opacity-40" id="pr-3"><div class="w-7 h-7 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-700" id="pr-3-icon"><i class="fa-solid fa-circle text-gray-400 text-[6px]"></i></div><div><p class="text-sm font-medium">Appointment Proof</p><p class="text-[10px] text-gray-500" id="pr-3-status">Pending</p></div></div>
+            <div class="flex items-center gap-3 opacity-40" id="pr-4"><div class="w-7 h-7 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-700" id="pr-4-icon"><i class="fa-solid fa-circle text-gray-400 text-[6px]"></i></div><div><p class="text-sm font-medium">Patient Settled</p><p class="text-[10px] text-gray-500" id="pr-4-status">Pending</p></div></div>
+            <div class="flex items-center gap-3 opacity-40" id="pr-5"><div class="w-7 h-7 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-700" id="pr-5-icon"><i class="fa-solid fa-circle text-gray-400 text-[6px]"></i></div><div><p class="text-sm font-medium">Summary Log</p><p class="text-[10px] text-gray-500" id="pr-5-status">Pending</p></div></div>
+        </div>
+    </div>
+
+    <!-- Emergency -->
+    <div class="mx-5 mt-4 mb-6">
+        <button onclick="document.getElementById('modal-emergency').classList.remove('hidden')" class="w-full bg-red-500 text-white py-3.5 rounded-2xl font-medium active:scale-95 transition-transform flex items-center justify-center gap-2">
+            <i class="fa-solid fa-triangle-exclamation"></i> Emergency / Need Help
+        </button>
+    </div>
+</div>
+
+<!-- ==================== BOTTOM NAVS ==================== -->
+<!-- Patient Nav -->
+<div class="bnav bg-white/90 dark:bg-sf-900/90 backdrop-blur-xl border-t border-gray-100 dark:border-gray-800 hidden" id="bnav-patient">
+    <div class="flex items-center justify-around py-2 px-2">
+        <button onclick="go('p-home')" class="ni on flex flex-col items-center py-1 px-4" data-pn="p-home"><i class="fa-solid fa-house text-base mb-0.5"></i><span class="text-[10px]">Home</span></button>
+        <button onclick="go('p-book')" class="ni flex flex-col items-center py-1 px-4" data-pn="p-book"><i class="fa-solid fa-calendar-plus text-base mb-0.5"></i><span class="text-[10px]">Book</span></button>
+        <button onclick="go('p-profile')" class="ni flex flex-col items-center py-1 px-4" data-pn="p-profile"><i class="fa-solid fa-user text-base mb-0.5"></i><span class="text-[10px]">Profile</span></button>
+    </div>
+</div>
+
+<!-- Escort Nav -->
+<div class="bnav bg-white/90 dark:bg-sf-900/90 backdrop-blur-xl border-t border-gray-100 dark:border-gray-800 hidden" id="bnav-escort">
+    <div class="flex items-center justify-around py-2 px-2">
+        <button onclick="go('e-home')" class="ni on flex flex-col items-center py-1 px-4" data-en="e-home"><i class="fa-solid fa-house text-base mb-0.5"></i><span class="text-[10px]">Home</span></button>
+        <button onclick="go('e-jobs')" class="ni flex flex-col items-center py-1 px-4" data-en="e-jobs"><i class="fa-solid fa-briefcase text-base mb-0.5"></i><span class="text-[10px]">Jobs</span></button>
+    </div>
+</div>
+
+<!-- ==================== MODALS ==================== -->
+<div id="modal-emergency" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/50" onclick="document.getElementById('modal-emergency').classList.add('hidden')"></div>
+    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] bg-white dark:bg-sf-900 rounded-t-3xl p-5 pb-8" style="animation:sUp .3s ease-out">
+        <div class="w-10 h-1 bg-gray-300 dark:bg-gray-600 rounded-full mx-auto mb-4"></div>
+        <h3 class="font-bold text-lg mb-4">Emergency</h3>
+        <div class="space-y-3">
+            <button onclick="toast('Calling 999...');document.getElementById('modal-emergency').classList.add('hidden')" class="w-full bg-red-500 text-white p-4 rounded-2xl flex items-center gap-3 active:scale-95 transition-transform text-left"><i class="fa-solid fa-phone-volume text-xl"></i><div><p class="font-medium text-sm">Call 999</p><p class="text-xs opacity-80">Emergency Services</p></div></button>
+            <button onclick="toast('Family notified');document.getElementById('modal-emergency').classList.add('hidden')" class="w-full bg-orange-500 text-white p-4 rounded-2xl flex items-center gap-3 active:scale-95 transition-transform text-left"><i class="fa-solid fa-people-roof text-xl"></i><div><p class="font-medium text-sm">Alert Family</p><p class="text-xs opacity-80">Notify emergency contact</p></div></button>
+            <button onclick="document.getElementById('modal-emergency').classList.add('hidden')" class="w-full py-3 text-gray-500 text-sm">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<div id="toast-box" class="fixed bottom-20 left-1/2 -translate-x-1/2 z-[60] w-[90%] max-w-[400px] pointer-events-none"></div>
+
+</div><!-- end app -->
+
+<script>
+// ============ DARK MODE ============
+if(window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.classList.add('dark');
+window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change',e=>document.documentElement.classList.toggle('dark',e.matches));
+
+// ============ STATE ============
+let user = null;
+let navStack = ['role'];
+let escortJobs = [];
+let aaCurrentStage = 1;
+let aaCountdownTimer = null;
+let aaStagePhotos = {};
+
+const ADMIN_EMAIL = 'amy223372@gmail.com';
+const WEB3FORMS_KEY = '95ae23ad-7580-46b4-8d05-0da3476b6621';
+
+const DLABELS = {
+    '1':'Lv 1 — Independent',
+    '2':'Lv 2 — Cane / Walking aids',
+    '3':'Lv 3 — Simple wheelchair',
+    '4':'Lv 4 — Wheelchair with vital equipment'
+};
+
+// ============ ESCORT JOBS DATA ============
+const jobsData = [
+    { id:1, type:'regular', surname:'Lam', disability:2, pickup:'Pokfulam Road, HKU Area', date:'Every Tuesday', time:'9:30 AM', hospital:'Queen Mary Hospital', note:'Weekly cardiology follow-up' },
+    { id:2, type:'regular', surname:'Chan', disability:1, pickup:'Sha Tin Centre', date:'Every Thursday', time:'2:00 PM', hospital:'Prince of Wales Hospital', note:'Monthly rehab session' },
+    { id:3, type:'regular', surname:'Wong', disability:3, pickup:'Tsuen Wan MTR', date:'Every Monday', time:'10:00 AM', hospital:'Yan Chai Hospital', note:'Dialysis — wheelchair needed' },
+    { id:4, type:'onetime', surname:'Ho', disability:4, pickup:'Kwun Tong', date:'Dec 10', time:'8:30 AM', hospital:'United Christian Hospital', note:'Surgery pre-op — vital equipment' },
+    { id:5, type:'onetime', surname:'Lee', disability:2, pickup:'Tseung Kwan O', date:'Dec 12', time:'11:00 AM', hospital:'Haven of Hope Hospital', note:'Orthopedic check-up' },
+    { id:6, type:'onetime', surname:'Ng', disability:1, pickup:'Central Ferry Pier', date:'Dec 15', time:'3:00 PM', hospital:'Queen Elizabeth Hospital', note:'Eye exam' },
+    { id:7, type:'regular', surname:'Yeung', disability:3, pickup:'Tai Po Market', date:'Every Wednesday', time:'9:00 AM', hospital:'Alice Ho Miu Ling Nethersole Hospital', note:'Physiotherapy' }
+];
+
+// ============ ESCORT PROFILES (for patient selection) ============
+const escortProfiles = [
+    { id:1, name:'Mary Chan', avatar:'👩‍⚕️', experience:'Experienced', languages:['Cantonese','English'], rating:4.8, reviews:45, specialty:'Wheelchair assistance', district:'Central & Western', available:true, dlvlMax:3 },
+    { id:2, name:'David Wong', avatar:'👨‍⚕️', experience:'Healthcare Professional', languages:['Cantonese','Mandarin'], rating:4.9, reviews:62, specialty:'Elderly care', district:'Sha Tin', available:true, dlvlMax:4 },
+    { id:3, name:'Lisa Ng', avatar:'👩', experience:'Some Experience', languages:['Cantonese'], rating:4.5, reviews:18, specialty:'General escort', district:'Tsuen Wan', available:true, dlvlMax:2 },
+    { id:4, name:'James Lam', avatar:'👨', experience:'Experienced', languages:['Cantonese','English','Mandarin'], rating:4.7, reviews:34, specialty:'Post-surgery care', district:'Kowloon City', available:true, dlvlMax:4 },
+    { id:5, name:'Sarah Ho', avatar:'👩‍⚕️', experience:'Healthcare Professional', languages:['Cantonese','English'], rating:5.0, reviews:28, specialty:'Vital equipment handling', district:'Eastern', available:true, dlvlMax:4 },
+    { id:6, name:'Peter Cheung', avatar:'👨‍⚕️', experience:'Experienced', languages:['Cantonese','Mandarin'], rating:4.6, reviews:39, specialty:'Walking aid support', district:'Kwun Tong', available:false, dlvlMax:3 }
+];
+let selectedEscortId = null;
+let escortFilterMode = 'all';
+let gSelectedEscortId = null;
+let gEscortFilterMode = 'all';
+
+// ============ NAVIGATION ============
+function go(id) {
+    document.querySelectorAll('.scr').forEach(s => s.classList.remove('on'));
+    const el = document.getElementById('scr-' + id);
+    if (el) el.classList.add('on');
+    if (navStack[navStack.length - 1] !== id) navStack.push(id);
+
+    // Bottom nav visibility
+    const pNav = document.getElementById('bnav-patient');
+    const eNav = document.getElementById('bnav-escort');
+    const isPatientScr = id.startsWith('p-');
+    const isEscortScr = id.startsWith('e-');
+
+    pNav.style.display = (user && user.role === 'patient' && isPatientScr) ? '' : 'none';
+    eNav.style.display = (user && user.role === 'escort' && isEscortScr) ? '' : 'none';
+
+    // Active nav highlight
+    document.querySelectorAll('[data-pn]').forEach(n => n.classList.toggle('on', n.dataset.pn === id));
+    document.querySelectorAll('[data-en]').forEach(n => n.classList.toggle('on', n.dataset.en === id));
+
+    // Screen-specific
+    if (id === 'e-jobs') renderEscortJobs('all');
+    if (id === 'active-appt') setupActiveAppt();
+    if (id === 'p-portal') setupPortalScreen();
+    if (id === 'p-book') setupBookingScreen();
+    if (id === 'g-book') setupGuardianBookScreen();
+}
+
+function goBack() {
+    navStack.pop();
+    const prev = navStack[navStack.length - 1] || 'role';
+    navStack.pop();
+    go(prev);
+}
+
+function genCode(prefix) {
+    return prefix + '-' + String(Math.floor(1000 + Math.random() * 9000));
+}
+
+// ============ ROLE SELECT & REGISTER ============
+function selectRole(role) {
+    document.getElementById('reg-role-input').value = role;
+    document.getElementById('reg-patient-fields').classList.toggle('hidden', role !== 'patient');
+    document.getElementById('reg-escort-fields').classList.toggle('hidden', role !== 'escort');
+    document.getElementById('reg-guardian-fields').classList.toggle('hidden', role !== 'guardian');
+    const titles = { patient:'Create Patient Account', escort:'Create Escort Account', guardian:'Create Guardian Account' };
+    document.getElementById('reg-title').textContent = titles[role] || 'Create Account';
+    go('register');
+}
+
+function handleRegister(e) {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const data = Object.fromEntries(fd.entries());
+    const role = data.role;
+
+    user = {
+        ...data,
+        role,
+        id: Date.now(),
+        code: role === 'patient' ? genCode('P') : role === 'escort' ? genCode('E') : genCode('G'),
+        joinDate: new Date().toISOString().split('T')[0]
+    };
+
+    sendEmail('registration', user);
+
+    if (role === 'patient') {
+        user.profileComplete = false;
+        setupPatientUI();
+        go('p-home');
+        document.getElementById('bnav-patient').style.display = '';
+    } else if (role === 'escort') {
+        setupEscortUI();
+        go('e-home');
+        document.getElementById('bnav-escort').style.display = '';
+    } else {
+        setupGuardianUI();
+        go('g-home');
+    }
+    toast(`Welcome, ${data.firstName}! Code: ${user.code}`);
+}
+
+// ============ PATIENT UI ============
+function setupPatientUI() {
+    document.getElementById('p-code-badge').textContent = user.code;
+    document.getElementById('p-home-name').textContent = user.firstName || 'Patient';
+    refreshPatientProfile();
+}
+
+function refreshPatientProfile() {
+    const dlvl = user.disabilityLevel || '';
+    document.getElementById('p-home-dlvl').textContent = dlvl ? DLABELS[dlvl] : 'Complete your Medical Portal';
+    document.getElementById('pp-name').textContent = (user.firstName || '') + ' ' + (user.lastName || '');
+    document.getElementById('pp-email').textContent = user.email || '';
+    document.getElementById('pp-code').textContent = user.code || 'P-0000';
+    document.getElementById('pp-dlvl').textContent = dlvl ? 'Lv ' + dlvl : '—';
+    document.getElementById('pp-addr1').textContent = user.primaryAddress || '—';
+    document.getElementById('pp-addr2').textContent = user.secondaryAddress || '—';
+    document.getElementById('pp-hago').textContent = user.haGoId || 'Not linked';
+    document.getElementById('pp-guardian').textContent = user.guardianCode || 'Not linked';
+
+    if (user.guardianCode && user.guardianCode.trim()) {
+        document.getElementById('p-guardian-notice').classList.remove('hidden');
+    } else {
+        document.getElementById('p-guardian-notice').classList.add('hidden');
+    }
+
+    // Update Medical Portal home card
+    updatePortalHomeCard();
+}
+
+function updatePortalHomeCard() {
+    const icon = document.getElementById('p-portal-card-icon');
+    const badge = document.getElementById('p-portal-card-badge');
+    const sub = document.getElementById('p-portal-card-sub');
+    const card = document.getElementById('p-portal-card-inner');
+    if (!icon || !badge || !card) return;
+
+    if (user.profileComplete) {
+        icon.className = 'w-11 h-11 rounded-xl flex items-center justify-center bg-emerald-100 dark:bg-emerald-900';
+        icon.querySelector('i').className = 'fa-solid fa-check-circle text-lg text-emerald-500';
+        badge.textContent = 'Complete';
+        badge.className = 'text-[9px] px-2 py-0.5 rounded-full font-medium bg-emerald-100 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-300';
+        sub.textContent = (DLABELS[user.disabilityLevel] || '') + ' · ' + (user.primaryAddress || '');
+        card.className = 'w-full bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm flex items-center gap-3 active:scale-[.98] transition-transform border-2 border-emerald-200 dark:border-emerald-800';
+        card.style.animation = '';
+    } else {
+        icon.className = 'w-11 h-11 rounded-xl flex items-center justify-center bg-amber-100 dark:bg-amber-900';
+        icon.querySelector('i').className = 'fa-solid fa-notes-medical text-lg text-amber-500';
+        badge.textContent = 'Incomplete';
+        badge.className = 'text-[9px] px-2 py-0.5 rounded-full font-medium bg-amber-100 dark:bg-amber-900 text-amber-600 dark:text-amber-300';
+        sub.textContent = 'Fill in your medical info to start booking';
+        card.className = 'w-full bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm flex items-center gap-3 active:scale-[.98] transition-transform border-2 border-amber-200 dark:border-amber-800';
+        card.style.animation = 'pulse2 2.5s infinite';
+    }
+}
+
+// ============ PATIENT PORTAL ============
+function setupPortalScreen() {
+    if (!user) return;
+    document.getElementById('portal-code').textContent = user.code || 'P-0000';
+
+    // Pre-fill form with existing data
+    const dlvlSel = document.getElementById('portal-dlvl');
+    if (dlvlSel) dlvlSel.value = user.disabilityLevel || '';
+    const medField = document.getElementById('portal-medical');
+    if (medField) medField.value = user.medicalNotes || '';
+    const addr1 = document.getElementById('portal-addr1');
+    if (addr1) addr1.value = user.primaryAddress || '';
+    const addr2 = document.getElementById('portal-addr2');
+    if (addr2) addr2.value = user.secondaryAddress || '';
+    const hago = document.getElementById('portal-hago');
+    if (hago) hago.value = user.haGoId || '';
+    const guardian = document.getElementById('portal-guardian');
+    if (guardian) guardian.value = user.guardianCode || '';
+
+    // Status badge
+    const badge = document.getElementById('portal-status-badge');
+    if (user.profileComplete) {
+        badge.textContent = 'Complete';
+        badge.className = 'ml-auto text-[10px] px-2 py-1 rounded-full font-mono bg-emerald-100 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-300';
+        document.getElementById('portal-incomplete-banner').classList.add('hidden');
+        document.getElementById('portal-complete-banner').classList.remove('hidden');
+        document.getElementById('portal-save-btn').innerHTML = '<i class="fa-solid fa-check mr-1"></i>Update Medical Information';
+    } else {
+        badge.textContent = 'Incomplete';
+        badge.className = 'ml-auto text-[10px] px-2 py-1 rounded-full font-mono bg-amber-100 dark:bg-amber-900 text-amber-600 dark:text-amber-300';
+        document.getElementById('portal-incomplete-banner').classList.remove('hidden');
+        document.getElementById('portal-complete-banner').classList.add('hidden');
+        document.getElementById('portal-save-btn').innerHTML = '<i class="fa-solid fa-check mr-1"></i>Save Medical Information';
+    }
+}
+
+function savePortal(e) {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const data = Object.fromEntries(fd.entries());
+
+    if (!data.disabilityLevel) { toast('Please select your disability level'); return; }
+    if (!data.primaryAddress || !data.primaryAddress.trim()) { toast('Please enter your primary address'); return; }
+
+    // Save to user object
+    user.disabilityLevel = data.disabilityLevel;
+    user.medicalNotes = data.medicalNotes || '';
+    user.primaryAddress = data.primaryAddress;
+    user.secondaryAddress = data.secondaryAddress || '';
+    user.haGoId = data.haGoId || '';
+    user.guardianCode = data.guardianCode || '';
+    user.profileComplete = true;
+
+    // Refresh displays
+    refreshPatientProfile();
+    setupPortalScreen();
+
+    toast('Medical information saved! You can now book escorts.');
+}
+
+// ============ BOOKING SCREEN ============
+function setupBookingScreen() {
+    if (!user) return;
+    const gate = document.getElementById('book-gate');
+    const form = document.getElementById('book-form-wrap');
+
+    if (!user.profileComplete) {
+        gate.classList.remove('hidden');
+        form.classList.add('hidden');
+        return;
+    }
+
+    gate.classList.add('hidden');
+    form.classList.remove('hidden');
+
+    // Pre-fill from portal data
+    const dlvl = user.disabilityLevel || '1';
+    document.getElementById('book-dlvl').value = dlvl;
+    document.getElementById('book-dlvl-display').textContent = DLABELS[dlvl] || 'Lv 1';
+    if (user.primaryAddress) document.getElementById('book-addr').value = user.primaryAddress;
+
+    // Reset search, filter, and escort selection
+    selectedEscortId = null;
+    escortFilterMode = 'all';
+    document.getElementById('book-selected-escort').value = '';
+    var searchInput = document.getElementById('escort-search');
+    if (searchInput) searchInput.value = '';
+    setEscortFilter('all');
+}
+
+function toggleBookAddr() {
+    const sel = document.getElementById('book-pickup-type').value;
+    const input = document.getElementById('book-addr');
+    if (sel === 'primary') input.value = user.primaryAddress || '';
+    else if (sel === 'secondary') input.value = user.secondaryAddress || '';
+    else input.value = '';
+}
+
+// ============ SHARED ESCORT CARD RENDERER ============
+function buildEscortCard(esc, selId, accentClass) {
+    var stars = '★'.repeat(Math.floor(esc.rating)) + (esc.rating % 1 >= 0.5 ? '½' : '');
+    var isSel = selId === esc.id;
+    var isAv = esc.available;
+    var selBg = accentClass === 'emerald' ? 'bg-emerald-50 dark:bg-emerald-900/30 border-2 border-emerald-500 ring-2 ring-emerald-200 dark:ring-emerald-800' : 'bg-pri-50 dark:bg-pri-900/30 border-2 border-pri-500 ring-2 ring-pri-200 dark:ring-pri-800';
+    var selIcon = accentClass === 'emerald' ? 'bg-emerald-100 dark:bg-emerald-900' : 'bg-pri-100 dark:bg-pri-900';
+    var checkColor = accentClass === 'emerald' ? 'text-emerald-500' : 'text-pri-500';
+    return '<div class="escort-card rounded-2xl p-4 shadow-sm cursor-pointer transition-all active:scale-[.98] '
+        + (isSel ? selBg : 'bg-white dark:bg-sf-800 border-2 border-gray-100 dark:border-gray-700')
+        + (!isAv ? ' opacity-50 pointer-events-none' : '') + '">'
+        + '<div class="flex items-center gap-3">'
+        + '<div class="w-11 h-11 rounded-full flex items-center justify-center text-xl '
+        + (isSel ? selIcon : 'bg-gray-100 dark:bg-gray-700') + '">' + esc.avatar + '</div>'
+        + '<div class="flex-1 min-w-0">'
+        + '<div class="flex items-center gap-2"><h4 class="font-medium text-sm">' + esc.name + '</h4>'
+        + (!isAv ? '<span class="text-[9px] bg-gray-200 dark:bg-gray-600 text-gray-500 dark:text-gray-300 px-1.5 py-0.5 rounded-full">Unavailable</span>' : '')
+        + (isSel ? '<i class="fa-solid fa-check-circle ' + checkColor + ' text-sm ml-auto"></i>' : '') + '</div>'
+        + '<p class="text-[10px] text-amber-500">' + stars + ' <span class="text-gray-400">(' + esc.reviews + ' reviews)</span></p>'
+        + '<p class="text-[10px] text-gray-500">' + esc.specialty + ' · ' + esc.district + '</p>'
+        + '</div></div>'
+        + '<div class="flex flex-wrap gap-1 mt-2">'
+        + '<span class="text-[9px] px-2 py-0.5 rounded-full bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-300">' + esc.experience + '</span>'
+        + esc.languages.map(function(l) { return '<span class="text-[9px] px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300">' + l + '</span>'; }).join('')
+        + '<span class="text-[9px] px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300">Up to Lv ' + esc.dlvlMax + '</span>'
+        + '</div></div>';
+}
+
+function getFilteredEscorts(searchId, filterMode) {
+    var searchEl = document.getElementById(searchId);
+    var query = searchEl ? searchEl.value.toLowerCase().trim() : '';
+    return escortProfiles.filter(function(esc) {
+        // Search filter
+        if (query) {
+            var haystack = (esc.name + ' ' + esc.specialty + ' ' + esc.district + ' ' + esc.languages.join(' ') + ' ' + esc.experience).toLowerCase();
+            if (haystack.indexOf(query) === -1) return false;
+        }
+        // Category filter
+        switch (filterMode) {
+            case 'available': return esc.available;
+            case 'experienced': return esc.experience === 'Experienced' || esc.experience === 'Healthcare Professional';
+            case 'cantonese': return esc.languages.indexOf('Cantonese') !== -1;
+            case 'english': return esc.languages.indexOf('English') !== -1;
+            case 'mandarin': return esc.languages.indexOf('Mandarin') !== -1;
+            case 'toprated': return esc.rating >= 4.7;
+            default: return true;
+        }
+    });
+}
+
+// ============ PATIENT ESCORT SELECTION ============
+function renderEscortSelection() {
+    var filtered = getFilteredEscorts('escort-search', escortFilterMode);
+    var container = document.getElementById('escort-selection-list');
+    var noRes = document.getElementById('escort-no-results');
+
+    if (filtered.length === 0) {
+        container.innerHTML = '';
+        noRes.classList.remove('hidden');
+    } else {
+        noRes.classList.add('hidden');
+        container.innerHTML = filtered.map(function(esc) {
+            return '<div onclick="selectEscort(' + esc.id + ')">' + buildEscortCard(esc, selectedEscortId, 'pri') + '</div>';
+        }).join('');
+    }
+}
+
+function selectEscort(id) {
+    selectedEscortId = id;
+    document.getElementById('book-selected-escort').value = id;
+    document.getElementById('escort-none-selected').classList.add('hidden');
+    renderEscortSelection();
+    var esc = escortProfiles.find(function(e) { return e.id === id; });
+    if (esc) toast(esc.name + ' selected!');
+}
+
+function filterEscorts() { renderEscortSelection(); }
+
+function setEscortFilter(mode) {
+    escortFilterMode = mode;
+    document.querySelectorAll('.esc-fbtn').forEach(function(btn) {
+        if (btn.dataset.ef === mode) {
+            btn.className = 'esc-fbtn text-[10px] px-3 py-1.5 rounded-full whitespace-nowrap bg-pri-500 text-white font-medium';
+        } else {
+            btn.className = 'esc-fbtn text-[10px] px-3 py-1.5 rounded-full whitespace-nowrap bg-gray-100 dark:bg-sf-800 text-gray-600 dark:text-gray-300';
+        }
+    });
+    renderEscortSelection();
+}
+
+// ============ GUARDIAN ESCORT SELECTION ============
+function renderGuardianEscortSelection() {
+    var filtered = getFilteredEscorts('g-escort-search', gEscortFilterMode);
+    var container = document.getElementById('g-escort-selection-list');
+    var noRes = document.getElementById('g-escort-no-results');
+
+    if (filtered.length === 0) {
+        container.innerHTML = '';
+        noRes.classList.remove('hidden');
+    } else {
+        noRes.classList.add('hidden');
+        container.innerHTML = filtered.map(function(esc) {
+            return '<div onclick="selectGuardianEscort(' + esc.id + ')">' + buildEscortCard(esc, gSelectedEscortId, 'emerald') + '</div>';
+        }).join('');
+    }
+}
+
+function selectGuardianEscort(id) {
+    gSelectedEscortId = id;
+    document.getElementById('g-book-selected-escort').value = id;
+    document.getElementById('g-escort-none-selected').classList.add('hidden');
+    renderGuardianEscortSelection();
+    var esc = escortProfiles.find(function(e) { return e.id === id; });
+    if (esc) toast(esc.name + ' selected!');
+}
+
+function filterGuardianEscorts() { renderGuardianEscortSelection(); }
+
+function setGuardianEscortFilter(mode) {
+    gEscortFilterMode = mode;
+    document.querySelectorAll('.gesc-fbtn').forEach(function(btn) {
+        if (btn.dataset.gef === mode) {
+            btn.className = 'gesc-fbtn text-[10px] px-3 py-1.5 rounded-full whitespace-nowrap bg-emerald-500 text-white font-medium';
+        } else {
+            btn.className = 'gesc-fbtn text-[10px] px-3 py-1.5 rounded-full whitespace-nowrap bg-gray-100 dark:bg-sf-800 text-gray-600 dark:text-gray-300';
+        }
+    });
+    renderGuardianEscortSelection();
+}
+
+// ============ HOSPITAL DROPDOWN — OTHER TOGGLE ============
+function toggleCustomHospital(prefix) {
+    var sel = document.getElementById(prefix + '-hospital');
+    var other = document.getElementById(prefix + '-hospital-other');
+    if (sel.value === '__other__') {
+        other.classList.remove('hidden');
+        other.required = true;
+        other.focus();
+    } else {
+        other.classList.add('hidden');
+        other.required = false;
+        other.value = '';
+    }
+}
+
+function getSelectedHospital(prefix) {
+    var sel = document.getElementById(prefix + '-hospital');
+    if (sel.value === '__other__') {
+        return document.getElementById(prefix + '-hospital-other').value.trim();
+    }
+    return sel.value;
+}
+
+function bookFromHA(idx) {
+    if (!user.profileComplete) {
+        toast('Please complete your Medical Portal first');
+        go('p-portal');
+        return;
+    }
+    go('p-book');
+}
+
+function submitPatientBooking(e) {
+    e.preventDefault();
+
+    if (!selectedEscortId) {
+        document.getElementById('escort-none-selected').classList.remove('hidden');
+        toast('Please select an escort');
+        return;
+    }
+
+    var fd = new FormData(e.target);
+    var data = Object.fromEntries(fd.entries());
+    // Resolve hospital name
+    data.hospital = getSelectedHospital('book');
+    if (!data.hospital) { toast('Please select a hospital'); return; }
+    var selectedEscort = escortProfiles.find(function(esc) { return esc.id === selectedEscortId; });
+
+    sendEmail('booking', {
+        patient: user,
+        bookingDetails: data,
+        escort: { name: selectedEscort ? selectedEscort.name : 'TBD' }
+    });
+
+    // Show active booking
+    document.getElementById('p-active-booking').classList.remove('hidden');
+    document.getElementById('p-no-booking').classList.add('hidden');
+    document.getElementById('p-active-escort-info').textContent = (selectedEscort ? selectedEscort.name : 'Escort') + ' · ' + data.hospital + ' — ' + data.time;
+
+    toast('Booking confirmed with ' + (selectedEscort ? selectedEscort.name : 'escort') + '!');
+    go('p-home');
+}
+
+// ============ ESCORT UI ============
+function setupEscortUI() {
+    escortJobs = [...jobsData];
+    document.getElementById('e-code-badge').textContent = user.code;
+    document.getElementById('e-home-name').textContent = user.firstName || 'Escort';
+    document.getElementById('ep-name').textContent = `${user.firstName} ${user.lastName}`;
+    document.getElementById('ep-email').textContent = user.email;
+    document.getElementById('ep-code').textContent = user.code;
+}
+
+function renderEscortJobs(filter) {
+    // Highlight active filter button
+    ['all','regular','onetime'].forEach(f => {
+        const btn = document.getElementById('jf-' + f);
+        if (f === filter) { btn.className = 'text-xs px-3 py-1.5 rounded-full bg-pri-500 text-white font-medium'; }
+        else { btn.className = 'text-xs px-3 py-1.5 rounded-full bg-gray-100 dark:bg-sf-800 text-gray-600 dark:text-gray-300'; }
+    });
+
+    let jobs = escortJobs;
+    if (filter === 'regular') jobs = escortJobs.filter(j => j.type === 'regular');
+    if (filter === 'onetime') jobs = escortJobs.filter(j => j.type === 'onetime');
+
+    const container = document.getElementById('e-jobs-list');
+    if (jobs.length === 0) {
+        container.innerHTML = '<div class="text-center py-12 text-gray-400"><i class="fa-solid fa-briefcase text-3xl mb-3 block"></i><p class="text-sm">No jobs available</p></div>';
+        return;
+    }
+
+    container.innerHTML = jobs.map(j => {
+        const dlvlClass = j.disability === 4 ? 'dlv4' : j.disability === 3 ? 'dlv3' : j.disability === 2 ? 'dlv2' : 'dlv1';
+        const isRegular = j.type === 'regular';
+        return `
+        <div class="bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm ${dlvlClass}">
+            <div class="flex items-center gap-2 mb-2">
+                <span class="text-[10px] px-2 py-0.5 rounded-full ${isRegular ? 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300' : 'bg-amber-100 dark:bg-amber-900 text-amber-600 dark:text-amber-300'}">${isRegular ? 'Regular' : 'One-Time'}</span>
+                <h4 class="font-medium text-sm">Patient: ${j.surname}</h4>
+            </div>
+            <div class="space-y-1 text-xs text-gray-500 dark:text-gray-400">
+                <p><i class="fa-solid fa-wheelchair mr-1 w-4"></i>${DLABELS[j.disability]}</p>
+                <p><i class="fa-solid fa-location-dot mr-1 w-4"></i>Pickup: ${j.pickup}</p>
+                <p><i class="fa-regular fa-calendar mr-1 w-4"></i>${j.date} at ${j.time}</p>
+                <p><i class="fa-solid fa-hospital mr-1 w-4"></i>${j.hospital}</p>
+                ${j.note ? `<p class="text-gray-400 italic">${j.note}</p>` : ''}
+            </div>
+            <button onclick="applyJob(${j.id})" class="mt-3 w-full bg-pri-500 text-white py-2.5 rounded-xl text-sm font-medium active:scale-95 transition-transform">Apply for This Job</button>
+        </div>`;
+    }).join('');
+}
+
+function filterJobs(f) { renderEscortJobs(f); }
+
+function applyJob(id) {
+    escortJobs = escortJobs.filter(j => j.id !== id);
+    renderEscortJobs('all');
+    document.getElementById('e-active-session').classList.remove('hidden');
+    toast('Job accepted! Check your schedule.');
+}
+
+function acceptEmergency() {
+    document.getElementById('e-active-session').classList.remove('hidden');
+    toast('Emergency accepted! Navigate to pickup.');
+}
+
+// ============ GUARDIAN UI ============
+function setupGuardianUI() {
+    document.getElementById('g-name').textContent = `${user.firstName} ${user.lastName}`;
+    document.getElementById('g-email').textContent = user.email;
+    document.getElementById('g-linked-patient').textContent = user.patientCodeLink || 'Not linked yet';
+}
+
+function guardianBook() {
+    // Reset guardian escort selection
+    gSelectedEscortId = null;
+    gEscortFilterMode = 'all';
+    go('g-book');
+}
+
+function setupGuardianBookScreen() {
+    var searchInput = document.getElementById('g-escort-search');
+    if (searchInput) searchInput.value = '';
+    gSelectedEscortId = null;
+    gEscortFilterMode = 'all';
+    document.getElementById('g-book-selected-escort').value = '';
+    setGuardianEscortFilter('all');
+}
+
+function submitGuardianBooking(e) {
+    e.preventDefault();
+
+    if (!gSelectedEscortId) {
+        document.getElementById('g-escort-none-selected').classList.remove('hidden');
+        toast('Please select an escort');
+        return;
+    }
+
+    var fd = new FormData(e.target);
+    var data = Object.fromEntries(fd.entries());
+    data.hospital = getSelectedHospital('g-book');
+    if (!data.hospital) { toast('Please select a hospital'); return; }
+    var selectedEscort = escortProfiles.find(function(esc) { return esc.id === gSelectedEscortId; });
+
+    var html = '<div class="bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm mt-2">'
+        + '<div class="flex items-center justify-between"><p class="font-medium text-sm">' + data.hospital + '</p><span class="text-[10px] sbusy px-2 py-0.5 rounded-full">Pending</span></div>'
+        + '<p class="text-xs text-gray-500 mt-1">' + data.date + ', ' + data.time + ' &bull; Escort: ' + (selectedEscort ? selectedEscort.name : 'TBD') + '</p>'
+        + '</div>';
+    document.getElementById('g-bookings').insertAdjacentHTML('beforeend', html);
+
+    toast('Booking submitted with ' + (selectedEscort ? selectedEscort.name : 'escort') + '!');
+    go('g-home');
+}
+
+// ============ ACTIVE APPOINTMENT — 5-STAGE SYSTEM ============
+function setupActiveAppt() {
+    aaCurrentStage = 1;
+    aaStagePhotos = {};
+
+    // Reset all stages: show stage 1, hide 2-5
+    for (let i = 1; i <= 5; i++) {
+        const stEl = document.getElementById('aa-stage-' + i);
+        if (stEl) stEl.classList.toggle('hidden', i !== 1);
+    }
+
+    // Reset stage badge
+    updateStageBadge(1);
+
+    // Reset digit inputs
+    document.querySelectorAll('.aa-code-digit').forEach(inp => { inp.value = ''; inp.disabled = false; });
+    const errEl = document.getElementById('aa-code-error');
+    const sucEl = document.getElementById('aa-code-success');
+    const verBtn = document.getElementById('aa-verify-btn');
+    if (errEl) errEl.classList.add('hidden');
+    if (sucEl) sucEl.classList.add('hidden');
+    if (verBtn) { verBtn.disabled = false; verBtn.textContent = 'Verify Code'; }
+
+    // Reset photo stages
+    [2, 3, 4].forEach(n => {
+        const prev = document.getElementById('s' + n + '-preview');
+        const done = document.getElementById('s' + n + '-done');
+        const upBtn = document.getElementById('s' + n + '-upload-btn');
+        if (prev) prev.classList.add('hidden');
+        if (done) done.classList.add('hidden');
+        if (upBtn) upBtn.classList.remove('hidden');
+    });
+
+    // Reset summary log
+    ['sum-done', 'sum-notes', 'sum-actions'].forEach(id => {
+        const ta = document.getElementById(id);
+        if (ta) { ta.value = ''; ta.disabled = false; }
+    });
+    const logDone = document.getElementById('aa-log-done');
+    const logBtn = document.getElementById('aa-submit-log-btn');
+    if (logDone) logDone.classList.add('hidden');
+    if (logBtn) logBtn.classList.remove('hidden');
+
+    // Reset progress tracker
+    resetProgressTracker();
+
+    // Start countdown timer (5 hours from now) — only relevant when stage 5 opens, but init the timer reference
+    if (aaCountdownTimer) clearInterval(aaCountdownTimer);
+    const cdEl = document.getElementById('aa-countdown');
+    if (cdEl) cdEl.textContent = '5:00:00';
+}
+
+function resetProgressTracker() {
+    for (let i = 1; i <= 5; i++) {
+        const row = document.getElementById('pr-' + i);
+        const icon = document.getElementById('pr-' + i + '-icon');
+        const status = document.getElementById('pr-' + i + '-status');
+        if (!row) continue;
+
+        if (i === 1) {
+            row.classList.remove('opacity-40');
+            icon.className = 'w-7 h-7 rounded-full flex items-center justify-center bg-pri-100 dark:bg-pri-900';
+            icon.style.animation = 'pulse2 2s infinite';
+            icon.innerHTML = '<i class="fa-solid fa-arrow-right text-pri-600 dark:text-pri-300 text-[10px]"></i>';
+            status.textContent = 'Waiting for code entry';
+        } else {
+            row.classList.add('opacity-40');
+            icon.className = 'w-7 h-7 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-700';
+            icon.style.animation = '';
+            icon.innerHTML = '<i class="fa-solid fa-circle text-gray-400 text-[6px]"></i>';
+            status.textContent = 'Pending';
+        }
+    }
+}
+
+function updateStageBadge(n) {
+    const badge = document.getElementById('aa-stage-badge');
+    if (badge) badge.textContent = 'Stage ' + n + '/5';
+}
+
+function markProgressComplete(n) {
+    const row = document.getElementById('pr-' + n);
+    const icon = document.getElementById('pr-' + n + '-icon');
+    const status = document.getElementById('pr-' + n + '-status');
+    if (!row) return;
+
+    row.classList.remove('opacity-40');
+    icon.className = 'w-7 h-7 rounded-full flex items-center justify-center bg-emerald-100 dark:bg-emerald-900';
+    icon.style.animation = '';
+    icon.innerHTML = '<i class="fa-solid fa-check text-emerald-500 text-[10px]"></i>';
+
+    const labels = { 1:'Pickup verified', 2:'Arrival confirmed', 3:'Appointment confirmed', 4:'Patient settled', 5:'Summary submitted' };
+    status.textContent = labels[n] || 'Done';
+}
+
+function markProgressActive(n) {
+    const row = document.getElementById('pr-' + n);
+    const icon = document.getElementById('pr-' + n + '-icon');
+    const status = document.getElementById('pr-' + n + '-status');
+    if (!row) return;
+
+    row.classList.remove('opacity-40');
+    const bgColors = { 2:'#dbeafe', 3:'#fef3c7', 4:'#d1fae5', 5:'#ede9fe' };
+    const bgDark = { 2:'#1e3a5f', 3:'#78350f', 4:'#064e3b', 5:'#4c1d95' };
+    const iconColors = { 2:'#3b82f6', 3:'#f59e0b', 4:'#10b981', 5:'#8b5cf6' };
+    const isDark = document.documentElement.classList.contains('dark');
+    icon.className = 'w-7 h-7 rounded-full flex items-center justify-center';
+    icon.style.backgroundColor = isDark ? (bgDark[n] || '#312e81') : (bgColors[n] || '#e0e7ff');
+    icon.style.animation = 'pulse2 2s infinite';
+    icon.innerHTML = '<i class="fa-solid fa-arrow-right text-[10px]" style="color:' + (iconColors[n] || '#6366f1') + '"></i>';
+    status.textContent = 'In progress...';
+}
+
+// ===== STAGE 1: Digit code input & verification =====
+function onCodeDigit(el, index) {
+    // Only allow digits
+    el.value = el.value.replace(/\D/g, '');
+    if (el.value.length === 1) {
+        // Auto-advance to next input
+        const digits = document.querySelectorAll('.aa-code-digit');
+        if (index < digits.length - 1) {
+            digits[index + 1].focus();
+        }
+    }
+}
+
+function verifyPickupCode() {
+    const digits = document.querySelectorAll('.aa-code-digit');
+    let entered = '';
+    digits.forEach(d => { entered += d.value; });
+
+    if (entered.length < 4) {
+        toast('Please enter all 4 digits');
+        return;
+    }
+
+    // The correct code is the last 4 digits of the patient's phone number
+    const correctCode = '0384';
+
+    const errEl = document.getElementById('aa-code-error');
+    const sucEl = document.getElementById('aa-code-success');
+    const verBtn = document.getElementById('aa-verify-btn');
+
+    if (entered === correctCode) {
+        // Success
+        errEl.classList.add('hidden');
+        sucEl.classList.remove('hidden');
+        verBtn.disabled = true;
+        verBtn.textContent = 'Verified';
+        verBtn.classList.add('opacity-50');
+        digits.forEach(d => { d.disabled = true; });
+
+        // Mark stage 1 complete, advance to stage 2
+        markProgressComplete(1);
+        markProgressActive(2);
+        aaCurrentStage = 2;
+        updateStageBadge(2);
+        toast('Pickup verified! Proceed to Stage 2.');
+
+        // Reveal stage 2 after short delay
+        setTimeout(() => {
+            document.getElementById('aa-stage-2').classList.remove('hidden');
+            document.getElementById('aa-stage-2').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 600);
+    } else {
+        // Error
+        errEl.classList.remove('hidden');
+        sucEl.classList.add('hidden');
+        digits.forEach(d => { d.value = ''; });
+        digits[0].focus();
+        toast('Incorrect code. The code is the last 4 digits of the patient\'s phone.');
+    }
+}
+
+// ===== STAGES 2-4: Photo Proof with Watermark =====
+function handleStagePhoto(event, stage) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+        const img = new Image();
+        img.onload = function() {
+            const canvas = document.createElement('canvas');
+            const maxW = 800;
+            const scale = Math.min(maxW / img.width, 1);
+            canvas.width = img.width * scale;
+            canvas.height = img.height * scale;
+            const ctx = canvas.getContext('2d');
+
+            // Draw original image
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+            // Build watermark text
+            const now = new Date();
+            const dateStr = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
+            const stageLabels = { 2: 'Hospital Arrival', 3: 'Appointment Proof', 4: 'Patient Drop-off' };
+            const wmLine1 = 'CareConnect HK | ' + (stageLabels[stage] || 'Proof');
+            const wmLine2 = dateStr + ' | ' + (user ? user.code : 'N/A');
+
+            // Semi-transparent bar at bottom
+            ctx.fillStyle = 'rgba(0,0,0,0.65)';
+            ctx.fillRect(0, canvas.height - 48, canvas.width, 48);
+            ctx.fillStyle = '#fff';
+            ctx.font = 'bold 13px DM Sans, sans-serif';
+            ctx.fillText(wmLine1, 10, canvas.height - 30);
+            ctx.font = '11px DM Sans, sans-serif';
+            ctx.fillText(wmLine2, 10, canvas.height - 12);
+
+            // Diagonal watermark
+            ctx.save();
+            ctx.translate(canvas.width / 2, canvas.height / 2);
+            ctx.rotate(-Math.PI / 6);
+            ctx.fillStyle = 'rgba(255,255,255,0.13)';
+            ctx.font = 'bold 30px DM Sans, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('CARECONNECT HK', 0, 0);
+            ctx.restore();
+
+            const watermarkedUrl = canvas.toDataURL('image/jpeg', 0.85);
+
+            // Store photo data for this stage
+            aaStagePhotos[stage] = watermarkedUrl;
+
+            // Update preview for this stage
+            const prevContainer = document.getElementById('s' + stage + '-preview');
+            const prevImg = document.getElementById('s' + stage + '-img');
+            const wmText = document.getElementById('s' + stage + '-wm-text');
+            const doneEl = document.getElementById('s' + stage + '-done');
+            const uploadBtn = document.getElementById('s' + stage + '-upload-btn');
+
+            if (prevImg) prevImg.src = watermarkedUrl;
+            if (wmText) wmText.textContent = wmLine2;
+            if (prevContainer) prevContainer.classList.remove('hidden');
+            if (doneEl) doneEl.classList.remove('hidden');
+            if (uploadBtn) uploadBtn.classList.add('hidden');
+
+            toast('Photo watermarked & ready!');
+        };
+        img.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+
+// ===== Confirm stage (advance to next) =====
+function confirmStage(stage) {
+    // Mark current stage complete
+    markProgressComplete(stage);
+
+    const nextStage = stage + 1;
+    aaCurrentStage = nextStage;
+    updateStageBadge(nextStage);
+
+    if (nextStage <= 5) {
+        markProgressActive(nextStage);
+        const nextEl = document.getElementById('aa-stage-' + nextStage);
+        if (nextEl) {
+            nextEl.classList.remove('hidden');
+            setTimeout(() => {
+                nextEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+        }
+
+        const stageNames = { 3:'Appointment Proof', 4:'Patient Drop-off', 5:'Summary Log' };
+        toast('Stage ' + stage + ' done! Proceed to ' + (stageNames[nextStage] || 'Stage ' + nextStage));
+
+        // Start 5-hour countdown when stage 5 opens
+        if (nextStage === 5) startSummaryCountdown();
+    }
+}
+
+// ===== STAGE 5: Summary Log with Countdown =====
+function startSummaryCountdown() {
+    let remaining = 5 * 60 * 60; // 5 hours in seconds
+    const cdEl = document.getElementById('aa-countdown');
+    if (!cdEl) return;
+
+    function tick() {
+        if (remaining <= 0) {
+            cdEl.textContent = '0:00:00';
+            cdEl.classList.add('animate-pulse');
+            clearInterval(aaCountdownTimer);
+            toast('Time is up! Please submit your summary log now.');
+            return;
+        }
+        const h = Math.floor(remaining / 3600);
+        const m = Math.floor((remaining % 3600) / 60);
+        const s = remaining % 60;
+        cdEl.textContent = h + ':' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+        remaining--;
+
+        // Urgency coloring
+        if (remaining < 1800) { cdEl.classList.add('animate-pulse'); }
+    }
+    tick();
+    aaCountdownTimer = setInterval(tick, 1000);
+}
+
+function submitSummaryLog() {
+    const done = document.getElementById('sum-done').value.trim();
+    const notes = document.getElementById('sum-notes').value.trim();
+    const actions = document.getElementById('sum-actions').value.trim();
+
+    if (!done) { toast('Please describe what was done during the appointment'); return; }
+    if (!notes) { toast('Please add notes from the doctor/nurse'); return; }
+    if (!actions) { toast('Please add future to-do items'); return; }
+
+    // Disable inputs
+    ['sum-done', 'sum-notes', 'sum-actions'].forEach(id => {
+        const ta = document.getElementById(id);
+        if (ta) ta.disabled = true;
+    });
+
+    // Hide submit button, show success
+    const logBtn = document.getElementById('aa-submit-log-btn');
+    const logDone = document.getElementById('aa-log-done');
+    if (logBtn) logBtn.classList.add('hidden');
+    if (logDone) logDone.classList.remove('hidden');
+
+    // Stop countdown
+    if (aaCountdownTimer) clearInterval(aaCountdownTimer);
+
+    // Mark stage 5 complete
+    markProgressComplete(5);
+    updateStageBadge(5);
+    toast('Summary log submitted! Patient/Guardian notified.');
+
+    // Send email with summary
+    sendEmail('summary_log', {
+        escort: user,
+        whatWasDone: done,
+        doctorNotes: notes,
+        futureTodos: actions,
+        stagesCompleted: Object.keys(aaStagePhotos).length + 2, // photos + pickup + summary
+        timestamp: new Date().toISOString()
+    });
+}
+
+// ============ LOGOUT ============
+function doLogout() {
+    user = null;
+    navStack = ['role'];
+    document.getElementById('bnav-patient').style.display = 'none';
+    document.getElementById('bnav-escort').style.display = 'none';
+    go('role');
+    toast('Signed out');
+}
+
+// ============ TOAST ============
+function toast(msg) {
+    const box = document.getElementById('toast-box');
+    const t = document.createElement('div');
+    t.className = 'toast bg-sf-900 dark:bg-white text-white dark:text-sf-900 rounded-2xl px-5 py-3 text-sm font-medium shadow-2xl text-center mb-2';
+    t.textContent = msg;
+    box.appendChild(t);
+    setTimeout(() => t.remove(), 3200);
+}
+
+// ============ EMAIL ============
+async function sendEmail(type, data) {
+    let subject = '', body = '';
+    const ts = new Date().toLocaleString();
+
+    switch(type) {
+        case 'registration':
+            subject = 'New ' + (data.role||'').toUpperCase() + ' Registration';
+            body = `REGISTRATION\nTime: ${ts}\nRole: ${data.role}\nCode: ${data.code}\nName: ${data.firstName} ${data.lastName}\nEmail: ${data.email}\nPhone: ${data.phone}`;
+            if (data.role === 'patient') body += `\nDisability: ${DLABELS[data.disabilityLevel]}\nPrimary Addr: ${data.primaryAddress||'—'}\nSecondary Addr: ${data.secondaryAddress||'—'}\nHA Go: ${data.haGoId||'—'}\nGuardian Code: ${data.guardianCode||'—'}`;
+            break;
+        case 'booking':
+            subject = 'New Booking Request';
+            body = `BOOKING\nTime: ${ts}\nPatient: ${data.patient.firstName} ${data.patient.lastName}\nCode: ${data.patient.code}\nDisability: ${DLABELS[data.bookingDetails.disabilityLevel]}\nPickup: ${data.bookingDetails.pickupAddress}\nDate: ${data.bookingDetails.date}\nTime: ${data.bookingDetails.time}\nHospital: ${data.bookingDetails.hospital}\nSelected Escort: ${data.escort ? data.escort.name : 'N/A'}`;
+            break;
+        case 'summary_log':
+            subject = 'Escort Summary Log — Post-Appointment Report';
+            body = `ESCORT SUMMARY LOG\nTime: ${ts}\nEscort: ${data.escort ? data.escort.firstName + ' ' + data.escort.lastName : 'N/A'}\nEscort Code: ${data.escort ? data.escort.code : 'N/A'}\n\n--- 1. What Was Done ---\n${data.whatWasDone}\n\n--- 2. Doctor/Nurse Notes ---\n${data.doctorNotes}\n\n--- 3. Future To-Dos ---\n${data.futureTodos}\n\nStages Completed: ${data.stagesCompleted}/5`;
+            break;
+    }
+
+    try {
+        const fd = new FormData();
+        fd.append('access_key', WEB3FORMS_KEY);
+        fd.append('subject', subject);
+        const senderName = data.firstName ? `${data.firstName} ${data.lastName||''}` : (data.escort ? `${data.escort.firstName} ${data.escort.lastName||''}` : 'CareConnect');
+        fd.append('from_name', senderName);
+        fd.append('email', data.email || (data.escort ? data.escort.email : 'system@careconnect.hk'));
+        fd.append('message', body);
+        const res = await fetch('https://api.web3forms.com/submit', { method:'POST', body:fd });
+        const result = await res.json();
+        if (result.success) console.log('Email sent to', ADMIN_EMAIL);
+    } catch(err) { console.error('Email error:', err); }
+}
+
+// ============ INIT ============
+setTimeout(() => {
+    document.getElementById('splash').classList.add('hide');
+    setTimeout(() => { const s = document.getElementById('splash'); if(s) s.remove(); }, 500);
+}, 1200);
+</script>
+
+
+
+</body></html>
