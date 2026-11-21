@@ -269,7 +269,7 @@
     <!-- Block 2: Active Appointment (Today) -->
     <div class="mx-5 mb-4">
         <h3 class="font-bold text-sm mb-2">Active Appointment (Today)</h3>
-        <div id="p-active-booking" class="hidden">
+        <div id="p-active-booking">
             <button onclick="go('active-appt')" class="w-full bg-gradient-to-r from-pri-500 to-purple-600 text-white rounded-2xl p-4 flex items-center gap-3 active:scale-[.98] transition-transform shadow-lg">
                 <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center" style="animation:pulse2 2s infinite"><i class="fa-solid fa-location-dot"></i></div>
                 <div class="flex-1 text-left">
@@ -532,15 +532,17 @@
     </div>
 
     <!-- Block 1: User Profile Card -->
+    <!-- Block 1: User Profile Card (Clickable) -->
     <div class="px-5 pt-2 pb-4">
-        <div class="w-full bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm flex items-center gap-3 border-2 border-gray-200 dark:border-gray-700">
+        <button onclick="go('e-info')" class="w-full bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm flex items-center gap-3 active:scale-[.98] transition-transform border-2 border-gray-200 dark:border-gray-700">
             <div class="w-14 h-14 bg-purple-100 dark:bg-purple-900 rounded-xl flex items-center justify-center text-2xl">🤝</div>
-            <div class="flex-1">
+            <div class="flex-1 text-left">
                 <h2 class="font-medium text-base">Mary Chan</h2>
                 <p class="text-xs text-gray-500">E-1088</p>
-                <span class="inline-block text-[10px] px-2 py-0.5 rounded-full bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 mt-1">Experienced Escort</span>
+                <span class="inline-block text-[10px] px-2 py-0.5 rounded-full bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 mt-1">Experienced • Lv 1-3</span>
             </div>
-        </div>
+            <i class="fa-solid fa-chevron-right text-gray-300 dark:text-gray-600"></i>
+        </button>
     </div>
 
     <!-- Block 2: Active Escort Session (Today) -->
@@ -641,6 +643,150 @@
 </div>
 
 <!-- ============================================================ -->
+<!-- ESCORT INFORMATION -->
+<div id="scr-e-info" class="scr min-h-screen pb-10">
+    <div class="sticky top-0 z-30 bg-sf-50/80 dark:bg-sf-950/80 backdrop-blur-xl px-5 pt-3 pb-2 flex items-center gap-3">
+        <button onclick="goBack()" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-sf-800 flex items-center justify-center"><i class="fa-solid fa-arrow-left text-sm"></i></button>
+        <h2 class="font-bold text-lg">Escort Information</h2>
+    </div>
+
+    <div class="px-5 pt-2 pb-8 space-y-4">
+        <!-- Escort Code Card -->
+        <div class="bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl p-5 text-white text-center shadow-lg">
+            <p class="text-xs opacity-70 uppercase tracking-wider mb-1">Your Escort Code</p>
+            <p class="text-3xl font-bold tracking-wider font-mono" id="e-info-code">E-1088</p>
+            <p class="text-[10px] opacity-60 mt-1">Share this code when accepting jobs</p>
+        </div>
+
+        <!-- Escort Qualification Form -->
+        <form id="escort-info-form" onsubmit="saveEscortInfo(event)" class="space-y-4">
+            <h3 class="font-bold text-sm text-gray-700 dark:text-gray-200"><i class="fa-solid fa-id-card text-purple-500 mr-1"></i>Professional Information</h3>
+
+            <div>
+                <label class="text-xs font-medium text-gray-500 mb-1 block">Experience Level</label>
+                <select name="experience" id="e-info-experience" class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none focus:ring-2 focus:ring-purple-500">
+                    <option value="">Select your experience level</option>
+                    <option value="none">None / Just starting</option>
+                    <option value="some">Some experience (1-2 years)</option>
+                    <option value="experienced" selected>Experienced (3-5 years)</option>
+                    <option value="professional">Healthcare professional (5+ years)</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="text-xs font-medium text-gray-500 mb-1 block">Languages</label>
+                <div class="flex flex-wrap gap-3">
+                    <label class="flex items-center gap-2">
+                        <input type="checkbox" name="languages" value="cantonese" checked class="w-5 h-5 rounded accent-purple-500">
+                        <span class="text-sm">Cantonese</span>
+                    </label>
+                    <label class="flex items-center gap-2">
+                        <input type="checkbox" name="languages" value="mandarin" class="w-5 h-5 rounded accent-purple-500">
+                        <span class="text-sm">Mandarin</span>
+                    </label>
+                    <label class="flex items-center gap-2">
+                        <input type="checkbox" name="languages" value="english" checked class="w-5 h-5 rounded accent-purple-500">
+                        <span class="text-sm">English</span>
+                    </label>
+                </div>
+            </div>
+
+            <div>
+                <label class="text-xs font-medium text-gray-500 mb-1 block">Patient Disability Levels You Can Handle</label>
+                <p class="text-[10px] text-gray-400 mb-2">Select all levels you're qualified to assist with</p>
+                <div class="space-y-2">
+                    <label class="flex items-center gap-3 p-3 bg-white dark:bg-sf-800 rounded-xl border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-purple-300">
+                        <input type="checkbox" name="patientLevels" value="1" checked class="w-5 h-5 rounded accent-purple-500">
+                        <div class="flex-1">
+                            <p class="text-sm font-medium">Level 1 — Independent</p>
+                            <p class="text-[10px] text-gray-500">Patient can walk independently, minimal assistance needed</p>
+                        </div>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 bg-white dark:bg-sf-800 rounded-xl border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-purple-300">
+                        <input type="checkbox" name="patientLevels" value="2" checked class="w-5 h-5 rounded accent-purple-500">
+                        <div class="flex-1">
+                            <p class="text-sm font-medium">Level 2 — Cane / Walking aids</p>
+                            <p class="text-[10px] text-gray-500">Patient uses cane, walker, or other walking aids</p>
+                        </div>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 bg-white dark:bg-sf-800 rounded-xl border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-purple-300">
+                        <input type="checkbox" name="patientLevels" value="3" checked class="w-5 h-5 rounded accent-purple-500">
+                        <div class="flex-1">
+                            <p class="text-sm font-medium">Level 3 — Simple wheelchair</p>
+                            <p class="text-[10px] text-gray-500">Patient uses standard wheelchair, no medical equipment</p>
+                        </div>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 bg-white dark:bg-sf-800 rounded-xl border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-purple-300">
+                        <input type="checkbox" name="patientLevels" value="4" class="w-5 h-5 rounded accent-purple-500">
+                        <div class="flex-1">
+                            <p class="text-sm font-medium">Level 4 — Wheelchair with vital equipment</p>
+                            <p class="text-[10px] text-gray-500">Patient requires oxygen, monitors, or other medical devices</p>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div>
+                <label class="text-xs font-medium text-gray-500 mb-1 block">Medical Specialties / Conditions Experience</label>
+                <p class="text-[10px] text-gray-400 mb-2">Optional: Areas where you have specific experience</p>
+                <div class="flex flex-wrap gap-2">
+                    <label class="flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-sf-800 rounded-full border border-gray-200 dark:border-gray-700 cursor-pointer text-sm hover:border-purple-300">
+                        <input type="checkbox" name="specialties" value="cardiology" checked class="w-4 h-4 rounded accent-purple-500">
+                        <span>Cardiology</span>
+                    </label>
+                    <label class="flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-sf-800 rounded-full border border-gray-200 dark:border-gray-700 cursor-pointer text-sm hover:border-purple-300">
+                        <input type="checkbox" name="specialties" value="orthopedics" class="w-4 h-4 rounded accent-purple-500">
+                        <span>Orthopedics</span>
+                    </label>
+                    <label class="flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-sf-800 rounded-full border border-gray-200 dark:border-gray-700 cursor-pointer text-sm hover:border-purple-300">
+                        <input type="checkbox" name="specialties" value="dialysis" class="w-4 h-4 rounded accent-purple-500">
+                        <span>Dialysis</span>
+                    </label>
+                    <label class="flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-sf-800 rounded-full border border-gray-200 dark:border-gray-700 cursor-pointer text-sm hover:border-purple-300">
+                        <input type="checkbox" name="specialties" value="oncology" class="w-4 h-4 rounded accent-purple-500">
+                        <span>Oncology</span>
+                    </label>
+                    <label class="flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-sf-800 rounded-full border border-gray-200 dark:border-gray-700 cursor-pointer text-sm hover:border-purple-300">
+                        <input type="checkbox" name="specialties" value="geriatric" class="w-4 h-4 rounded accent-purple-500">
+                        <span>Geriatric Care</span>
+                    </label>
+                </div>
+            </div>
+
+            <div>
+                <label class="text-xs font-medium text-gray-500 mb-1 block">Certifications</label>
+                <p class="text-[10px] text-gray-400 mb-2">Professional certifications you hold</p>
+                <div class="flex flex-wrap gap-2">
+                    <label class="flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-sf-800 rounded-full border border-gray-200 dark:border-gray-700 cursor-pointer text-sm hover:border-purple-300">
+                        <input type="checkbox" name="certifications" value="firstaid" checked class="w-4 h-4 rounded accent-purple-500">
+                        <span>First Aid</span>
+                    </label>
+                    <label class="flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-sf-800 rounded-full border border-gray-200 dark:border-gray-700 cursor-pointer text-sm hover:border-purple-300">
+                        <input type="checkbox" name="certifications" value="cpr" checked class="w-4 h-4 rounded accent-purple-500">
+                        <span>CPR</span>
+                    </label>
+                    <label class="flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-sf-800 rounded-full border border-gray-200 dark:border-gray-700 cursor-pointer text-sm hover:border-purple-300">
+                        <input type="checkbox" name="certifications" value="pce" class="w-4 h-4 rounded accent-purple-500">
+                        <span>PCE</span>
+                    </label>
+                    <label class="flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-sf-800 rounded-full border border-gray-200 dark:border-gray-700 cursor-pointer text-sm hover:border-purple-300">
+                        <input type="checkbox" name="certifications" value="nursing" class="w-4 h-4 rounded accent-purple-500">
+                        <span>Nursing License</span>
+                    </label>
+                </div>
+            </div>
+
+            <div>
+                <label class="text-xs font-medium text-gray-500 mb-1 block">Additional Notes</label>
+                <textarea name="notes" id="e-info-notes" rows="2" placeholder="Any additional information about your experience or availability..." class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none focus:ring-2 focus:ring-purple-500 text-sm"></textarea>
+            </div>
+
+            <button type="submit" id="escort-info-save-btn" data-filled="false" class="w-full bg-purple-500 text-white py-3.5 rounded-2xl font-medium active:scale-95 transition-transform">
+                <i class="fa-solid fa-check mr-1"></i>Save Escort Information
+            </button>
+        </form>
+    </div>
+</div>
 <!-- ==================== GUARDIAN SCREENS ====================== -->
 <!-- ============================================================ -->
 
@@ -908,186 +1054,6 @@
     </div>
 </div>
 
-<!-- ESCORT PROFILE -->
-<div id="scr-e-profile" class="scr min-h-screen pb-10">
-    <div class="sticky top-0 z-30 bg-sf-50/80 dark:bg-sf-950/80 backdrop-blur-xl px-5 pt-3 pb-2 flex items-center gap-3">
-        <button onclick="goBack()" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-sf-800 flex items-center justify-center"><i class="fa-solid fa-arrow-left text-sm"></i></button>
-        <h2 class="font-bold text-lg">My Profile</h2>
-    </div>
-    <div class="px-5 pt-4 space-y-4 pb-8">
-        <div class="bg-white dark:bg-sf-800 rounded-2xl p-5 text-center shadow-sm">
-            <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl">🤝</div>
-            <h3 class="font-medium text-lg">Mary Chan</h3>
-            <p class="text-xs text-gray-500">mary.chan@email.com</p>
-            <span class="text-xs bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 px-3 py-1 rounded-full font-medium inline-block mt-2">E-1088</span>
-        </div>
-        <button onclick="doLogout()" class="w-full py-3.5 rounded-2xl border-2 border-red-200 dark:border-red-900 text-red-500 font-medium active:scale-95 transition-transform">Sign Out</button>
-    </div>
-</div>
-
-<!-- ============================================================ -->
-<!-- ==================== GUARDIAN SCREENS ====================== -->
-<!-- ============================================================ -->
-
-<!-- GUARDIAN HOME -->
-<div id="scr-g-home" class="scr min-h-screen pb-24">
-    <div class="sticky top-0 z-30 bg-sf-50/80 dark:bg-sf-950/80 backdrop-blur-xl px-5 pt-3 pb-2 flex items-center justify-between">
-        <h1 class="font-display text-xl text-emerald-600 dark:text-emerald-300">Guardian Portal</h1>
-        <div class="flex items-center gap-2">
-            <span class="text-[10px] bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-300 px-2 py-1 rounded-full font-medium">G-5512</span>
-            <button onclick="go('g-profile')" class="w-9 h-9 rounded-full bg-emerald-100 dark:bg-emerald-900 flex items-center justify-center"><i class="fa-solid fa-user text-emerald-600 dark:text-emerald-300 text-sm"></i></button>
-        </div>
-    </div>
-
-    <!-- Block 1: Guardian Profile with Multi-Patient Switcher -->
-    <div class="px-5 pt-2 pb-4">
-        <div class="w-full bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm border-2 border-gray-200 dark:border-gray-700">
-            <div class="flex items-center gap-3 mb-3">
-                <div class="w-14 h-14 bg-emerald-100 dark:bg-emerald-900 rounded-xl flex items-center justify-center text-2xl">👨‍👩‍👧</div>
-                <div class="flex-1">
-                    <h2 class="font-medium text-base">David Chan</h2>
-                    <p class="text-xs text-gray-500">G-5512 (Guardian)</p>
-                </div>
-            </div>
-
-            <!-- Multi-Patient Switcher -->
-            <div class="bg-emerald-50 dark:bg-emerald-900/20 rounded-xl p-3">
-                <p class="text-[10px] text-emerald-600 dark:text-emerald-400 mb-2 font-medium">Managing Patients:</p>
-                <div class="space-y-2">
-                    <button onclick="switchPatient('P-0384')" id="g-patient-btn-0384" class="w-full flex items-center gap-2 p-2 rounded-lg bg-emerald-100 dark:bg-emerald-800 border-2 border-emerald-500">
-                        <i class="fa-solid fa-circle-check text-emerald-600 dark:text-emerald-300"></i>
-                        <div class="text-left flex-1">
-                            <p class="text-xs font-medium text-emerald-700 dark:text-emerald-300">Mrs. Chan (P-0384, Lv 2)</p>
-                            <p class="text-[10px] text-emerald-600 dark:text-emerald-400">Currently viewing</p>
-                        </div>
-                    </button>
-                    <button onclick="switchPatient('P-2244')" id="g-patient-btn-2244" class="w-full flex items-center gap-2 p-2 rounded-lg bg-white dark:bg-sf-700 border-2 border-gray-200 dark:border-gray-600">
-                        <i class="fa-regular fa-circle text-gray-400"></i>
-                        <div class="text-left flex-1">
-                            <p class="text-xs font-medium">Mr. Chan (P-2244, Lv 3)</p>
-                            <p class="text-[10px] text-gray-500">Tap to switch</p>
-                        </div>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 7-Day Unmatched Alert -->
-    <div class="mx-5 mb-4 bg-amber-50 dark:bg-amber-900/20 border-2 border-amber-300 dark:border-amber-700 rounded-2xl p-4">
-        <div class="flex items-center gap-3 mb-2">
-            <i class="fa-solid fa-triangle-exclamation text-amber-500 text-xl"></i>
-            <div>
-                <p class="font-medium text-sm text-amber-700 dark:text-amber-300">Escort Needed Within 7 Days!</p>
-                <p class="text-xs text-amber-600 dark:text-amber-400" id="g-alert-patient">Mrs. Chan's appointment has no escort</p>
-            </div>
-        </div>
-        <div class="bg-white dark:bg-sf-800 rounded-xl p-3 mb-2">
-            <p class="text-sm font-medium">Cardiology — Queen Mary Hospital</p>
-            <p class="text-xs text-gray-500">Tomorrow, 10:00 AM</p>
-            <p class="text-xs text-red-500 font-medium mt-1">⚠️ No escort matched yet</p>
-        </div>
-        <button onclick="increaseWageGuardian()" class="w-full bg-amber-500 text-white py-2.5 rounded-xl text-sm font-medium active:scale-95 transition-transform">
-            <i class="fa-solid fa-dollar-sign mr-1"></i> Increase Hourly Wage (+$20/hr)
-        </button>
-    </div>
-
-    <!-- Block 2: Active Appointment -->
-    <div class="mx-5 mb-4">
-        <h3 class="font-bold text-sm mb-2">Active Appointment (Today)</h3>
-        <button onclick="go('active-appt')" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-2xl p-4 flex items-center gap-3 active:scale-[.98] transition-transform shadow-lg">
-            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center" style="animation:pulse2 2s infinite"><i class="fa-solid fa-location-dot"></i></div>
-            <div class="flex-1 text-left">
-                <p class="font-medium text-sm" id="g-active-patient">Active Session for Mrs. Chan</p>
-                <p class="text-xs opacity-80">Mary Chan • Queen Mary Hospital</p>
-            </div>
-            <i class="fa-solid fa-chevron-right text-sm opacity-60"></i>
-        </button>
-    </div>
-
-    <!-- Block 3: Requests & Records -->
-    <div class="mx-5 mb-4">
-        <h3 class="font-bold text-sm mb-2">Upcoming Requests & Records</h3>
-        <div class="space-y-2" id="g-requests-list">
-            <div class="bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm">
-                <div class="flex items-center justify-between mb-1">
-                    <p class="font-medium text-sm">Cardiology Follow-up</p>
-                    <span class="text-[10px] savail px-2 py-0.5 rounded-full">Confirmed</span>
-                </div>
-                <p class="text-xs text-gray-500">Tomorrow, 10:00 AM • Mary Chan</p>
-                <p class="text-xs text-gray-500">Queen Mary Hospital</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Block 4: HA Go + Book CTA -->
-    <div class="mx-5 mb-4">
-        <div class="flex items-center justify-between mb-2">
-            <h3 class="font-bold text-sm" id="g-hago-title">HA Go (Mrs. Chan)</h3>
-            <span class="text-[10px] px-2 py-0.5 rounded-full bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300"><i class="fa-solid fa-link text-[8px] mr-1"></i>Synced</span>
-        </div>
-        <div class="space-y-2 mb-3">
-            <div class="bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm dlv2">
-                <p class="font-medium text-sm">Cardiology Follow-up</p>
-                <p class="text-xs text-gray-500 mt-1"><i class="fa-regular fa-calendar mr-1"></i>Tomorrow, 10:00 AM</p>
-                <p class="text-xs text-gray-500"><i class="fa-solid fa-hospital mr-1"></i>Queen Mary Hospital</p>
-                <button onclick="go('g-book')" class="mt-2 text-xs text-emerald-500 font-medium"><i class="fa-solid fa-plus mr-1"></i>Book Escort for This</button>
-            </div>
-        </div>
-        <button onclick="go('g-book')" class="w-full bg-emerald-500 text-white py-3 rounded-xl font-medium active:scale-95 transition-transform">
-            <i class="fa-solid fa-calendar-plus mr-1"></i> Launch a Request / Book Escort
-        </button>
-    </div>
-</div>
-
-<!-- GUARDIAN BOOK -->
-<div id="scr-g-book" class="scr min-h-screen pb-10">
-    <div class="sticky top-0 z-30 bg-sf-50/80 dark:bg-sf-950/80 backdrop-blur-xl px-5 pt-3 pb-2 flex items-center gap-3">
-        <button onclick="goBack()" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-sf-800 flex items-center justify-center"><i class="fa-solid fa-arrow-left text-sm"></i></button>
-        <h2 class="font-bold text-lg">Book Escort for Patient</h2>
-    </div>
-    <div class="px-5 pt-2 pb-8">
-        <p class="text-sm mb-4">Booking for: <strong id="g-booking-for">Mrs. Chan (P-0384)</strong></p>
-        <form id="g-book-form" onsubmit="submitGuardianBooking(event)" class="space-y-4">
-            <div><label class="text-xs font-medium text-gray-500 mb-1 block">Appointment Date</label>
-                <input type="date" name="date" class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none">
-            </div>
-            <div><label class="text-xs font-medium text-gray-500 mb-1 block">Appointment Time</label>
-                <input type="time" name="time" class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none">
-            </div>
-            <div><label class="text-xs font-medium text-gray-500 mb-1 block">Hospital / Clinic</label>
-                <select name="hospital" class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none">
-                    <option>Queen Mary Hospital</option>
-                    <option>Prince of Wales Hospital</option>
-                </select>
-            </div>
-            <div><label class="text-xs font-medium text-gray-500 mb-1 block">Hourly Wage (HKD)</label>
-                <input type="number" name="hourlyWage" min="50" max="300" step="10" placeholder="e.g. 100" class="w-full px-4 py-3 bg-white dark:bg-sf-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none">
-            </div>
-            <button type="submit" id="g-book-submit-btn" data-filled="false" class="w-full bg-emerald-500 text-white py-3.5 rounded-2xl font-medium active:scale-95 transition-transform">Submit Booking Request</button>
-        </form>
-    </div>
-</div>
-
-<!-- GUARDIAN PROFILE -->
-<div id="scr-g-profile" class="scr min-h-screen pb-10">
-    <div class="sticky top-0 z-30 bg-sf-50/80 dark:bg-sf-950/80 backdrop-blur-xl px-5 pt-3 pb-2 flex items-center gap-3">
-        <button onclick="goBack()" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-sf-800 flex items-center justify-center"><i class="fa-solid fa-arrow-left text-sm"></i></button>
-        <h2 class="font-bold text-lg">My Profile</h2>
-    </div>
-    <div class="px-5 pt-4 space-y-4 pb-8">
-        <div class="bg-white dark:bg-sf-800 rounded-2xl p-5 text-center shadow-sm">
-            <div class="w-16 h-16 bg-emerald-100 dark:bg-emerald-900 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl">👨‍👩‍👧</div>
-            <h3 class="font-medium text-lg">David Chan</h3>
-            <p class="text-xs text-gray-500">david.chan@email.com</p>
-            <span class="text-xs bg-emerald-100 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-300 px-3 py-1 rounded-full font-medium inline-block mt-2">G-5512</span>
-        </div>
-        <button onclick="doLogout()" class="w-full py-3.5 rounded-2xl border-2 border-red-200 dark:border-red-900 text-red-500 font-medium active:scale-95 transition-transform">Sign Out</button>
-    </div>
-</div>
-
-<!-- ============================================================ -->
-<!-- ============================================================ -->
 <!-- ==================== ACTIVE APPOINTMENT ==================== -->
 <!-- ============================================================ -->
 <div id="scr-active-appt" class="scr min-h-screen pb-10">
@@ -1150,53 +1116,14 @@
     </div>
 
     <!-- ========== GUARDIAN VIEW (3 Blocks + Report) ========== -->
+    <!-- ========== GUARDIAN VIEW (Progress Tracker + Report Only) ========== -->
     <div id="aa-guardian-view" class="hidden">
-        <!-- Block 1: Show Patient Code -->
         <div class="mx-5 mt-3">
             <div class="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl p-5 text-white shadow-lg text-center">
-                <p class="text-xs opacity-70 uppercase tracking-wider mb-1">Patient Verification Code</p>
-                <p class="text-sm opacity-80 mb-4">Patient shows this code to escort upon pickup:</p>
-                <div class="flex justify-center gap-3 mb-4">
-                    <div class="w-14 h-14 text-center text-3xl font-bold rounded-xl bg-white/20 border-2 border-white flex items-center justify-center">0</div>
-                    <div class="w-14 h-14 text-center text-3xl font-bold rounded-xl bg-white/20 border-2 border-white flex items-center justify-center">3</div>
-                    <div class="w-14 h-14 text-center text-3xl font-bold rounded-xl bg-white/20 border-2 border-white flex items-center justify-center">8</div>
-                    <div class="w-14 h-14 text-center text-3xl font-bold rounded-xl bg-white/20 border-2 border-white flex items-center justify-center">4</div>
-                </div>
-                <p class="text-xs opacity-60">Patient: Mrs. Chan (P-0384)</p>
-            </div>
-        </div>
-
-        <!-- Block 2: Confirm Pickup -->
-        <div class="mx-5 mt-4">
-            <div class="bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm border-2 border-emerald-200 dark:border-emerald-800">
-                <div class="flex items-center gap-3 mb-2">
-                    <i class="fa-solid fa-check-circle text-emerald-500 text-xl"></i>
-                    <h4 class="font-medium text-sm">Confirm Escort Pickup</h4>
-                </div>
-                <p class="text-xs text-gray-500 mb-3">Click when escort has picked up the patient.</p>
-                <button onclick="confirmGuardianPickup()" id="guardian-confirm-pickup" class="w-full bg-emerald-500 text-white py-3 rounded-xl font-medium active:scale-95 transition-transform">
-                    <i class="fa-solid fa-hand-holding-medical mr-1"></i> Confirm Escort Has Picked Up Patient
-                </button>
-                <div id="guardian-pickup-confirmed" class="hidden mt-2 text-center">
-                    <p class="text-xs text-emerald-500"><i class="fa-solid fa-check-circle mr-1"></i>Pickup confirmed!</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Block 3: Confirm Appointment End -->
-        <div class="mx-5 mt-4">
-            <div class="bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm border-2 border-purple-200 dark:border-purple-800">
-                <div class="flex items-center gap-3 mb-2">
-                    <i class="fa-solid fa-flag-checkered text-purple-500 text-xl"></i>
-                    <h4 class="font-medium text-sm">Confirm Appointment Completion</h4>
-                </div>
-                <p class="text-xs text-gray-500 mb-3">Click when the appointment is complete and patient is settled.</p>
-                <button onclick="confirmGuardianEnd()" id="guardian-confirm-end" class="w-full bg-purple-500 text-white py-3 rounded-xl font-medium active:scale-95 transition-transform">
-                    <i class="fa-solid fa-house-circle-check mr-1"></i> Confirm Appointment Has Ended
-                </button>
-                <div id="guardian-end-confirmed" class="hidden mt-2 text-center">
-                    <p class="text-xs text-purple-500"><i class="fa-solid fa-check-circle mr-1"></i>Appointment ended!</p>
-                </div>
+                <i class="fa-solid fa-clipboard-check text-4xl mb-3 opacity-80"></i>
+                <h3 class="font-medium text-base mb-1">Tracking Active Appointment</h3>
+                <p class="text-xs opacity-70">Monitoring escort session for Mrs. Chan (P-0384)</p>
+                <p class="text-[10px] opacity-60 mt-2">Mary Chan (E-1088) • Queen Mary Hospital</p>
             </div>
         </div>
 
@@ -1233,8 +1160,6 @@
             </div>
         </div>
     </div>
-
-    <!-- ========== ESCORT VIEW (Full 5-Stage Workflow) ========== -->
     <div id="aa-escort-view" class="hidden">
         <!-- STAGE 1: Code Verification -->
         <div id="aa-stage-1-escort" class="mx-5 mt-3">
@@ -1725,6 +1650,15 @@ function submitPatientBooking(e) {
 
 function increaseWage() {
     toast('Hourly wage increased by $20/hr!');
+}
+
+// ============ ESCORT INFORMATION ============
+function saveEscortInfo(e) {
+    e.preventDefault();
+    autoFillOrSubmit(e.target, () => {
+        toast('Escort information saved!');
+        goBack();
+    });
 }
 
 // ============ ESCORT FUNCTIONS ============
