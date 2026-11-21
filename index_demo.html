@@ -1087,6 +1087,7 @@
 </div>
 
 <!-- ============================================================ -->
+<!-- ============================================================ -->
 <!-- ==================== ACTIVE APPOINTMENT ==================== -->
 <!-- ============================================================ -->
 <div id="scr-active-appt" class="scr min-h-screen pb-10">
@@ -1096,77 +1097,261 @@
         <span class="ml-auto text-[10px] bg-pri-100 dark:bg-pri-900 text-pri-600 dark:text-pri-300 px-2 py-1 rounded-full font-mono" id="aa-stage-badge">Stage 1/5</span>
     </div>
 
-    <!-- STAGE 1: Role-Specific Verification -->
-    <div id="aa-stage-1" class="mx-5 mt-3">
-        <!-- Patient/Guardian View: Show Code -->
-        <div id="aa-s1-patient" class="hidden bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl p-5 text-white shadow-lg text-center">
-            <p class="text-xs opacity-70 uppercase tracking-wider mb-1">Stage 1 — Pickup Verification</p>
-            <p class="text-sm opacity-80 mb-4">Show this verification code to your escort in person upon pickup:</p>
-            <div class="flex justify-center gap-3 mb-4">
-                <div class="w-14 h-14 text-center text-3xl font-bold rounded-xl bg-white/20 border-2 border-white flex items-center justify-center">0</div>
-                <div class="w-14 h-14 text-center text-3xl font-bold rounded-xl bg-white/20 border-2 border-white flex items-center justify-center">3</div>
-                <div class="w-14 h-14 text-center text-3xl font-bold rounded-xl bg-white/20 border-2 border-white flex items-center justify-center">8</div>
-                <div class="w-14 h-14 text-center text-3xl font-bold rounded-xl bg-white/20 border-2 border-white flex items-center justify-center">4</div>
+    <!-- ========== PATIENT VIEW (3 Blocks) ========== -->
+    <div id="aa-patient-view" class="hidden">
+        <!-- Block 1: Show Code to Escort -->
+        <div class="mx-5 mt-3">
+            <div class="bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl p-5 text-white shadow-lg text-center">
+                <p class="text-xs opacity-70 uppercase tracking-wider mb-1">Your Verification Code</p>
+                <p class="text-sm opacity-80 mb-4">Show this code to your escort in person upon pickup:</p>
+                <div class="flex justify-center gap-3 mb-4">
+                    <div class="w-14 h-14 text-center text-3xl font-bold rounded-xl bg-white/20 border-2 border-white flex items-center justify-center">0</div>
+                    <div class="w-14 h-14 text-center text-3xl font-bold rounded-xl bg-white/20 border-2 border-white flex items-center justify-center">3</div>
+                    <div class="w-14 h-14 text-center text-3xl font-bold rounded-xl bg-white/20 border-2 border-white flex items-center justify-center">8</div>
+                    <div class="w-14 h-14 text-center text-3xl font-bold rounded-xl bg-white/20 border-2 border-white flex items-center justify-center">4</div>
+                </div>
+                <p class="text-xs opacity-60">Patient Code: P-0384</p>
             </div>
-            <p class="text-xs opacity-60">Patient Code: P-0384</p>
         </div>
 
-        <!-- Escort View: Enter Code -->
-        <div id="aa-s1-escort" class="bg-gradient-to-br from-pri-500 to-purple-600 rounded-2xl p-5 text-white shadow-lg">
-            <p class="text-xs opacity-70 uppercase tracking-wider mb-1 text-center">Stage 1 — Pickup Verification</p>
-            <p class="text-[10px] opacity-60 text-center mb-4">Enter the 4-digit code shown by the patient</p>
-            <div class="flex justify-center gap-3 mb-4">
-                <input type="text" maxlength="1" class="aa-code-digit w-14 h-14 text-center text-2xl font-bold rounded-xl bg-white/20 border-2 border-white/40 text-white placeholder-white/40 outline-none focus:border-white focus:bg-white/30" placeholder="·">
-                <input type="text" maxlength="1" class="aa-code-digit w-14 h-14 text-center text-2xl font-bold rounded-xl bg-white/20 border-2 border-white/40 text-white placeholder-white/40 outline-none focus:border-white focus:bg-white/30" placeholder="·">
-                <input type="text" maxlength="1" class="aa-code-digit w-14 h-14 text-center text-2xl font-bold rounded-xl bg-white/20 border-2 border-white/40 text-white placeholder-white/40 outline-none focus:border-white focus:bg-white/30" placeholder="·">
-                <input type="text" maxlength="1" class="aa-code-digit w-14 h-14 text-center text-2xl font-bold rounded-xl bg-white/20 border-2 border-white/40 text-white placeholder-white/40 outline-none focus:border-white focus:bg-white/30" placeholder="·">
+        <!-- Block 2: Confirm Pickup -->
+        <div class="mx-5 mt-4">
+            <div class="bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm border-2 border-emerald-200 dark:border-emerald-800">
+                <div class="flex items-center gap-3 mb-2">
+                    <i class="fa-solid fa-check-circle text-emerald-500 text-xl"></i>
+                    <h4 class="font-medium text-sm">Confirm Escort Pickup</h4>
+                </div>
+                <p class="text-xs text-gray-500 mb-3">Click when your escort has arrived and verified your code.</p>
+                <button onclick="confirmPatientPickup()" id="patient-confirm-pickup" class="w-full bg-emerald-500 text-white py-3 rounded-xl font-medium active:scale-95 transition-transform">
+                    <i class="fa-solid fa-hand-holding-medical mr-1"></i> Confirm Escort Has Picked Me Up
+                </button>
+                <div id="patient-pickup-confirmed" class="hidden mt-2 text-center">
+                    <p class="text-xs text-emerald-500"><i class="fa-solid fa-check-circle mr-1"></i>Pickup confirmed!</p>
+                </div>
             </div>
-            <div id="aa-code-error" class="hidden text-center mb-3">
-                <p class="text-xs text-red-200 bg-red-500/30 rounded-lg py-1.5 px-3 inline-block"><i class="fa-solid fa-xmark mr-1"></i>Code does not match. Try again.</p>
-            </div>
-            <button onclick="verifyPickupCode()" id="aa-verify-btn" data-filled="false" class="w-full bg-white text-pri-600 py-3 rounded-xl font-medium active:scale-95 transition-transform text-sm">Verify Code</button>
-            <div id="aa-code-success" class="hidden text-center mt-3">
-                <p class="text-xs text-emerald-200"><i class="fa-solid fa-check-circle mr-1"></i>Verified! Pickup confirmed.</p>
+        </div>
+
+        <!-- Block 3: Confirm Appointment End -->
+        <div class="mx-5 mt-4">
+            <div class="bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm border-2 border-purple-200 dark:border-purple-800">
+                <div class="flex items-center gap-3 mb-2">
+                    <i class="fa-solid fa-flag-checkered text-purple-500 text-xl"></i>
+                    <h4 class="font-medium text-sm">Confirm Appointment Completion</h4>
+                </div>
+                <p class="text-xs text-gray-500 mb-3">Click when the appointment is complete and you're back home/settled.</p>
+                <button onclick="confirmPatientEnd()" id="patient-confirm-end" class="w-full bg-purple-500 text-white py-3 rounded-xl font-medium active:scale-95 transition-transform">
+                    <i class="fa-solid fa-house-circle-check mr-1"></i> Confirm Appointment Has Ended
+                </button>
+                <div id="patient-end-confirmed" class="hidden mt-2 text-center">
+                    <p class="text-xs text-purple-500"><i class="fa-solid fa-check-circle mr-1"></i>Appointment ended!</p>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- STAGE 2-4: Photo Proof (Simplified for demo) -->
-    <div id="aa-stage-2" class="mx-5 mt-3 hidden">
-        <div class="bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm border-2 border-blue-200 dark:border-blue-800">
-            <h4 class="font-medium text-sm mb-2"><i class="fa-solid fa-hospital text-blue-500 mr-1"></i>Stage 2 — Hospital Arrival</h4>
-            <p class="text-xs text-gray-500 mb-3">Upload a watermarked photo proving arrival at the hospital.</p>
-            <label class="block w-full bg-blue-500 text-white py-3 rounded-xl text-sm font-medium text-center cursor-pointer active:scale-95 transition-transform">
-                <i class="fa-solid fa-camera mr-1"></i> Take Arrival Photo (Demo)
-                <input type="file" accept="image/*" capture="environment" class="hidden" onchange="handleStagePhoto(event, 2)">
-            </label>
+    <!-- ========== GUARDIAN VIEW (3 Blocks + Report) ========== -->
+    <div id="aa-guardian-view" class="hidden">
+        <!-- Block 1: Show Patient Code -->
+        <div class="mx-5 mt-3">
+            <div class="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl p-5 text-white shadow-lg text-center">
+                <p class="text-xs opacity-70 uppercase tracking-wider mb-1">Patient Verification Code</p>
+                <p class="text-sm opacity-80 mb-4">Patient shows this code to escort upon pickup:</p>
+                <div class="flex justify-center gap-3 mb-4">
+                    <div class="w-14 h-14 text-center text-3xl font-bold rounded-xl bg-white/20 border-2 border-white flex items-center justify-center">0</div>
+                    <div class="w-14 h-14 text-center text-3xl font-bold rounded-xl bg-white/20 border-2 border-white flex items-center justify-center">3</div>
+                    <div class="w-14 h-14 text-center text-3xl font-bold rounded-xl bg-white/20 border-2 border-white flex items-center justify-center">8</div>
+                    <div class="w-14 h-14 text-center text-3xl font-bold rounded-xl bg-white/20 border-2 border-white flex items-center justify-center">4</div>
+                </div>
+                <p class="text-xs opacity-60">Patient: Mrs. Chan (P-0384)</p>
+            </div>
         </div>
-    </div>
 
-    <!-- STAGE 5: Summary Log -->
-    <div id="aa-stage-5" class="mx-5 mt-3 hidden">
-        <div class="bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm border-2 border-purple-200 dark:border-purple-800">
-            <h4 class="font-medium text-sm mb-1"><i class="fa-solid fa-clipboard-list text-purple-500 mr-1"></i>Stage 5 — Summary Log</h4>
-            <p class="text-xs text-gray-500 mb-1">Complete within <span class="font-bold text-red-500" id="aa-countdown">5:00:00</span></p>
-            <div class="space-y-4 mt-4">
-                <div>
-                    <label class="text-xs font-bold text-gray-600 dark:text-gray-300 mb-1 block"><span class="text-pri-500 mr-1">1.</span>What was done during the appointment?</label>
-                    <textarea id="sum-done" rows="3" placeholder="Describe procedures, tests, consultations..." class="w-full px-4 py-3 bg-gray-50 dark:bg-sf-900 border border-gray-200 dark:border-gray-700 rounded-xl outline-none text-sm"></textarea>
+        <!-- Block 2: Confirm Pickup -->
+        <div class="mx-5 mt-4">
+            <div class="bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm border-2 border-emerald-200 dark:border-emerald-800">
+                <div class="flex items-center gap-3 mb-2">
+                    <i class="fa-solid fa-check-circle text-emerald-500 text-xl"></i>
+                    <h4 class="font-medium text-sm">Confirm Escort Pickup</h4>
                 </div>
-                <div>
-                    <label class="text-xs font-bold text-gray-600 dark:text-gray-300 mb-1 block"><span class="text-amber-500 mr-1">2.</span>Important notes from doctor/nurse</label>
-                    <textarea id="sum-notes" rows="3" placeholder="New medication, diet restrictions, warning signs..." class="w-full px-4 py-3 bg-gray-50 dark:bg-sf-900 border border-gray-200 dark:border-gray-700 rounded-xl outline-none text-sm"></textarea>
-                </div>
-                <div>
-                    <label class="text-xs font-bold text-gray-600 dark:text-gray-300 mb-1 block"><span class="text-emerald-500 mr-1">3.</span>Call to Action — Future to-dos</label>
-                    <textarea id="sum-actions" rows="3" placeholder="Follow-up appointments, medication schedules..." class="w-full px-4 py-3 bg-gray-50 dark:bg-sf-900 border border-gray-200 dark:border-gray-700 rounded-xl outline-none text-sm"></textarea>
+                <p class="text-xs text-gray-500 mb-3">Click when escort has picked up the patient.</p>
+                <button onclick="confirmGuardianPickup()" id="guardian-confirm-pickup" class="w-full bg-emerald-500 text-white py-3 rounded-xl font-medium active:scale-95 transition-transform">
+                    <i class="fa-solid fa-hand-holding-medical mr-1"></i> Confirm Escort Has Picked Up Patient
+                </button>
+                <div id="guardian-pickup-confirmed" class="hidden mt-2 text-center">
+                    <p class="text-xs text-emerald-500"><i class="fa-solid fa-check-circle mr-1"></i>Pickup confirmed!</p>
                 </div>
             </div>
-            <button onclick="submitSummaryLog()" id="aa-submit-log-btn" data-filled="false" class="w-full bg-pri-500 text-white py-3.5 rounded-xl text-sm font-medium mt-4 active:scale-95 transition-transform">Submit Summary Log</button>
+        </div>
+
+        <!-- Block 3: Confirm Appointment End -->
+        <div class="mx-5 mt-4">
+            <div class="bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm border-2 border-purple-200 dark:border-purple-800">
+                <div class="flex items-center gap-3 mb-2">
+                    <i class="fa-solid fa-flag-checkered text-purple-500 text-xl"></i>
+                    <h4 class="font-medium text-sm">Confirm Appointment Completion</h4>
+                </div>
+                <p class="text-xs text-gray-500 mb-3">Click when the appointment is complete and patient is settled.</p>
+                <button onclick="confirmGuardianEnd()" id="guardian-confirm-end" class="w-full bg-purple-500 text-white py-3 rounded-xl font-medium active:scale-95 transition-transform">
+                    <i class="fa-solid fa-house-circle-check mr-1"></i> Confirm Appointment Has Ended
+                </button>
+                <div id="guardian-end-confirmed" class="hidden mt-2 text-center">
+                    <p class="text-xs text-purple-500"><i class="fa-solid fa-check-circle mr-1"></i>Appointment ended!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Escort Summary Report (shown after Stage 5 complete) -->
+        <div class="mx-5 mt-4" id="guardian-report-section">
+            <div class="bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm border-2 border-pri-200 dark:border-pri-800">
+                <div class="flex items-center gap-2 mb-3">
+                    <i class="fa-solid fa-file-medical text-pri-500 text-lg"></i>
+                    <h4 class="font-medium text-base">Escort Summary Report</h4>
+                </div>
+                
+                <div class="space-y-3">
+                    <div class="bg-pri-50 dark:bg-pri-900/20 rounded-lg p-3">
+                        <p class="text-xs font-bold text-pri-600 dark:text-pri-300 mb-1">1. What was done during the appointment?</p>
+                        <p class="text-xs text-gray-700 dark:text-gray-300" id="report-done">Cardiology consultation completed. ECG and blood pressure checked.</p>
+                    </div>
+                    <div class="bg-amber-50 dark:bg-amber-900/20 rounded-lg p-3">
+                        <p class="text-xs font-bold text-amber-600 dark:text-amber-300 mb-1">2. Important notes from doctor/nurse</p>
+                        <p class="text-xs text-gray-700 dark:text-gray-300" id="report-notes">Doctor advised to continue current medication. Monitor blood pressure daily.</p>
+                    </div>
+                    <div class="bg-emerald-50 dark:bg-emerald-900/20 rounded-lg p-3">
+                        <p class="text-xs font-bold text-emerald-600 dark:text-emerald-300 mb-1">3. Future to-dos</p>
+                        <p class="text-xs text-gray-700 dark:text-gray-300" id="report-actions">Follow-up appointment in 3 months. Take medication twice daily with meals.</p>
+                    </div>
+                </div>
+
+                <div class="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+                    <p class="text-[10px] text-gray-400">
+                        <i class="fa-solid fa-user-nurse mr-1"></i>Submitted by: Mary Chan (E-1088)
+                        <span class="mx-2">•</span>
+                        <i class="fa-regular fa-clock mr-1"></i>Completed: Dec 1, 2024 2:30 PM
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Progress Tracker -->
+    <!-- ========== ESCORT VIEW (Full 5-Stage Workflow) ========== -->
+    <div id="aa-escort-view" class="hidden">
+        <!-- STAGE 1: Code Verification -->
+        <div id="aa-stage-1-escort" class="mx-5 mt-3">
+            <div class="bg-gradient-to-br from-pri-500 to-purple-600 rounded-2xl p-5 text-white shadow-lg">
+                <p class="text-xs opacity-70 uppercase tracking-wider mb-1 text-center">Stage 1 — Pickup Verification</p>
+                <p class="text-[10px] opacity-60 text-center mb-4">Enter the 4-digit code shown by the patient</p>
+                <div class="flex justify-center gap-3 mb-4">
+                    <input type="text" maxlength="1" class="aa-code-digit w-14 h-14 text-center text-2xl font-bold rounded-xl bg-white/20 border-2 border-white/40 text-white placeholder-white/40 outline-none focus:border-white focus:bg-white/30" placeholder="·">
+                    <input type="text" maxlength="1" class="aa-code-digit w-14 h-14 text-center text-2xl font-bold rounded-xl bg-white/20 border-2 border-white/40 text-white placeholder-white/40 outline-none focus:border-white focus:bg-white/30" placeholder="·">
+                    <input type="text" maxlength="1" class="aa-code-digit w-14 h-14 text-center text-2xl font-bold rounded-xl bg-white/20 border-2 border-white/40 text-white placeholder-white/40 outline-none focus:border-white focus:bg-white/30" placeholder="·">
+                    <input type="text" maxlength="1" class="aa-code-digit w-14 h-14 text-center text-2xl font-bold rounded-xl bg-white/20 border-2 border-white/40 text-white placeholder-white/40 outline-none focus:border-white focus:bg-white/30" placeholder="·">
+                </div>
+                <div id="aa-code-error" class="hidden text-center mb-3">
+                    <p class="text-xs text-red-200 bg-red-500/30 rounded-lg py-1.5 px-3 inline-block"><i class="fa-solid fa-xmark mr-1"></i>Code does not match. Try again.</p>
+                </div>
+                <button onclick="verifyPickupCode()" id="aa-verify-btn" data-filled="false" class="w-full bg-white text-pri-600 py-3 rounded-xl font-medium active:scale-95 transition-transform text-sm">Verify Code</button>
+                <div id="aa-code-success" class="hidden text-center mt-3">
+                    <p class="text-xs text-emerald-200"><i class="fa-solid fa-check-circle mr-1"></i>Verified! Pickup confirmed.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 2: Hospital Arrival Photo -->
+        <div id="aa-stage-2-escort" class="mx-5 mt-3 hidden">
+            <div class="bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm border-2 border-blue-200 dark:border-blue-800">
+                <div class="flex items-center gap-2 mb-2">
+                    <div class="w-7 h-7 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center"><i class="fa-solid fa-hospital text-blue-500 text-[10px]"></i></div>
+                    <h4 class="font-medium text-sm">Stage 2 — Hospital Arrival</h4>
+                </div>
+                <p class="text-xs text-gray-500 mb-3">Upload a watermarked photo proving arrival at the hospital.</p>
+                <label id="s2-upload-btn" class="block w-full bg-blue-500 text-white py-3 rounded-xl text-sm font-medium text-center cursor-pointer active:scale-95 transition-transform">
+                    <i class="fa-solid fa-camera mr-1"></i> Take Arrival Photo
+                    <input type="file" accept="image/*" capture="environment" class="hidden" onchange="handleStagePhoto(event, 2)">
+                </label>
+                <div id="s2-done" class="hidden mt-2">
+                    <p class="text-xs text-emerald-500 font-medium text-center mb-2"><i class="fa-solid fa-check-circle mr-1"></i>Arrival photo uploaded</p>
+                    <button onclick="confirmStage(2)" class="w-full bg-emerald-500 text-white py-3 rounded-xl text-sm font-medium active:scale-95 transition-transform">Confirm Hospital Arrival</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 3: Appointment Proof Photo -->
+        <div id="aa-stage-3-escort" class="mx-5 mt-3 hidden">
+            <div class="bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm border-2 border-amber-200 dark:border-amber-800">
+                <div class="flex items-center gap-2 mb-2">
+                    <div class="w-7 h-7 bg-amber-100 dark:bg-amber-900 rounded-full flex items-center justify-center"><i class="fa-solid fa-stethoscope text-amber-500 text-[10px]"></i></div>
+                    <h4 class="font-medium text-sm">Stage 3 — Appointment Proof</h4>
+                </div>
+                <p class="text-xs text-gray-500 mb-3">Upload a watermarked photo during or after the appointment.</p>
+                <label id="s3-upload-btn" class="block w-full bg-amber-500 text-white py-3 rounded-xl text-sm font-medium text-center cursor-pointer active:scale-95 transition-transform">
+                    <i class="fa-solid fa-camera mr-1"></i> Take Appointment Photo
+                    <input type="file" accept="image/*" capture="environment" class="hidden" onchange="handleStagePhoto(event, 3)">
+                </label>
+                <div id="s3-done" class="hidden mt-2">
+                    <p class="text-xs text-emerald-500 font-medium text-center mb-2"><i class="fa-solid fa-check-circle mr-1"></i>Appointment photo uploaded</p>
+                    <button onclick="confirmStage(3)" class="w-full bg-emerald-500 text-white py-3 rounded-xl text-sm font-medium active:scale-95 transition-transform">Confirm Appointment Complete</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 4: Patient Settled Photo -->
+        <div id="aa-stage-4-escort" class="mx-5 mt-3 hidden">
+            <div class="bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm border-2 border-emerald-200 dark:border-emerald-800">
+                <div class="flex items-center gap-2 mb-2">
+                    <div class="w-7 h-7 bg-emerald-100 dark:bg-emerald-900 rounded-full flex items-center justify-center"><i class="fa-solid fa-house-chimney text-emerald-500 text-[10px]"></i></div>
+                    <h4 class="font-medium text-sm">Stage 4 — Patient Settled</h4>
+                </div>
+                <p class="text-xs text-gray-500 mb-3">Upload a watermarked photo proving patient has safely arrived home.</p>
+                <label id="s4-upload-btn" class="block w-full bg-emerald-500 text-white py-3 rounded-xl text-sm font-medium text-center cursor-pointer active:scale-95 transition-transform">
+                    <i class="fa-solid fa-camera mr-1"></i> Take Drop-off Photo
+                    <input type="file" accept="image/*" capture="environment" class="hidden" onchange="handleStagePhoto(event, 4)">
+                </label>
+                <div id="s4-done" class="hidden mt-2">
+                    <p class="text-xs text-emerald-500 font-medium text-center mb-2"><i class="fa-solid fa-check-circle mr-1"></i>Drop-off photo uploaded</p>
+                    <button onclick="confirmStage(4)" class="w-full bg-emerald-500 text-white py-3 rounded-xl text-sm font-medium active:scale-95 transition-transform">Confirm Patient Settled Safely</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 5: Summary Log -->
+        <div id="aa-stage-5-escort" class="mx-5 mt-3 hidden">
+            <div class="bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm border-2 border-purple-200 dark:border-purple-800">
+                <div class="flex items-center gap-2 mb-1">
+                    <div class="w-7 h-7 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center"><i class="fa-solid fa-clipboard-list text-purple-500 text-[10px]"></i></div>
+                    <h4 class="font-medium text-sm">Stage 5 — Summary Log</h4>
+                </div>
+                <p class="text-xs text-gray-500 mb-1">Complete within <span class="font-bold text-red-500" id="aa-countdown">5:00:00</span></p>
+                <p class="text-[10px] text-gray-400 mb-4">This summary will be shared with the patient/guardian for review.</p>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="text-xs font-bold text-gray-600 dark:text-gray-300 mb-1 block"><span class="text-pri-500 mr-1">1.</span>What was done during the hospital appointment?</label>
+                        <textarea id="sum-done" rows="3" placeholder="Describe the procedures, tests, or consultations that took place..." class="w-full px-4 py-3 bg-gray-50 dark:bg-sf-900 border border-gray-200 dark:border-gray-700 rounded-xl outline-none focus:ring-2 focus:ring-pri-500 text-sm"></textarea>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-gray-600 dark:text-gray-300 mb-1 block"><span class="text-amber-500 mr-1">2.</span>Important notes from doctor / nurse</label>
+                        <p class="text-[10px] text-gray-400 mb-1">What the patient should be aware of, or what the guardian must be notified about.</p>
+                        <textarea id="sum-notes" rows="3" placeholder="e.g. New medication prescribed, diet restrictions, warning signs to watch for..." class="w-full px-4 py-3 bg-gray-50 dark:bg-sf-900 border border-gray-200 dark:border-gray-700 rounded-xl outline-none focus:ring-2 focus:ring-pri-500 text-sm"></textarea>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-gray-600 dark:text-gray-300 mb-1 block"><span class="text-emerald-500 mr-1">3.</span>Call to Action — Future to-dos</label>
+                        <p class="text-[10px] text-gray-400 mb-1">Follow-up appointments, medication schedules, exercises, etc.</p>
+                        <textarea id="sum-actions" rows="3" placeholder="e.g. Next appointment on Jan 15, take medication twice daily, blood test in 2 weeks..." class="w-full px-4 py-3 bg-gray-50 dark:bg-sf-900 border border-gray-200 dark:border-gray-700 rounded-xl outline-none focus:ring-2 focus:ring-pri-500 text-sm"></textarea>
+                    </div>
+                </div>
+
+                <button onclick="submitSummaryLog()" id="aa-submit-log-btn" data-filled="false" class="w-full bg-pri-500 text-white py-3.5 rounded-xl text-sm font-medium mt-4 active:scale-95 transition-transform">Submit Summary Log</button>
+                <div id="aa-log-done" class="hidden mt-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl p-4 text-center">
+                    <i class="fa-solid fa-check-circle text-2xl text-emerald-500 mb-2"></i>
+                    <p class="text-sm font-medium text-emerald-700 dark:text-emerald-300">Summary submitted!</p>
+                    <p class="text-[10px] text-emerald-600 dark:text-emerald-400">Patient/Guardian will be notified for review.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Tracker (shared by all roles) -->
     <div class="mx-5 mt-4 bg-white dark:bg-sf-800 rounded-2xl p-4 shadow-sm">
         <h4 class="font-medium text-xs text-gray-400 mb-3 uppercase tracking-wider">Progress Tracker</h4>
         <div class="space-y-2" id="aa-progress">
@@ -1193,14 +1378,13 @@
         </div>
     </div>
 
-    <!-- Emergency Button -->
+    <!-- Emergency Button (shared) -->
     <div class="mx-5 mt-4 mb-6">
         <button onclick="document.getElementById('modal-emergency').classList.remove('hidden')" class="w-full bg-red-500 text-white py-3.5 rounded-2xl font-medium active:scale-95 transition-transform flex items-center justify-center gap-2">
             <i class="fa-solid fa-triangle-exclamation"></i> Emergency / Need Help
         </button>
     </div>
 </div>
-
 <!-- ==================== BOTTOM NAVS ==================== -->
 <!-- Patient Nav -->
 <div class="bnav bg-white/90 dark:bg-sf-900/90 backdrop-blur-xl border-t border-gray-100 dark:border-gray-800 hidden" id="bnav-patient">
@@ -1626,16 +1810,125 @@ function increaseWageGuardian() {
 }
 
 // ============ ACTIVE APPOINTMENT ============
+let aaCurrentStage = 1;
+let aaCountdownInterval = null;
+
 function setupActiveAppt() {
-    const isEscort = currentRole === 'escort';
-    document.getElementById('aa-s1-patient').classList.toggle('hidden', isEscort);
-    document.getElementById('aa-s1-escort').classList.toggle('hidden', !isEscort);
+    // Reset stage
+    aaCurrentStage = 1;
+    
+    // Show correct view based on role
+    document.getElementById('aa-patient-view').classList.toggle('hidden', currentRole !== 'patient');
+    document.getElementById('aa-guardian-view').classList.toggle('hidden', currentRole !== 'guardian');
+    document.getElementById('aa-escort-view').classList.toggle('hidden', currentRole !== 'escort');
+    
+    // Reset escort stages
+    if (currentRole === 'escort') {
+        for (let i = 1; i <= 5; i++) {
+            const stEl = document.getElementById('aa-stage-' + i + '-escort');
+            if (stEl) stEl.classList.toggle('hidden', i !== 1);
+        }
+        
+        // Reset code inputs
+        document.querySelectorAll('.aa-code-digit').forEach(inp => { inp.value = ''; inp.disabled = false; });
+        document.getElementById('aa-code-error')?.classList.add('hidden');
+        document.getElementById('aa-code-success')?.classList.add('hidden');
+        const verBtn = document.getElementById('aa-verify-btn');
+        if (verBtn) {
+            verBtn.disabled = false;
+            verBtn.setAttribute('data-filled', 'false');
+        }
+        
+        // Reset photo stages
+        ['s2-done', 's3-done', 's4-done'].forEach(id => document.getElementById(id)?.classList.add('hidden'));
+        ['s2-upload-btn', 's3-upload-btn', 's4-upload-btn'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.classList.remove('hidden');
+        });
+        
+        // Reset summary log
+        document.getElementById('sum-done').value = '';
+        document.getElementById('sum-notes').value = '';
+        document.getElementById('sum-actions').value = '';
+        const submitBtn = document.getElementById('aa-submit-log-btn');
+        if (submitBtn) submitBtn.setAttribute('data-filled', 'false');
+        document.getElementById('aa-log-done')?.classList.add('hidden');
+    }
+    
+    // Reset progress tracker
+    updateProgressTracker(1);
+    updateStageBadge(1);
 }
 
+function updateStageBadge(stage) {
+    const badge = document.getElementById('aa-stage-badge');
+    if (badge) badge.textContent = `Stage ${stage}/5`;
+}
+
+function updateProgressTracker(currentStage) {
+    for (let i = 1; i <= 5; i++) {
+        const prEl = document.getElementById('pr-' + i);
+        if (!prEl) continue;
+        
+        const icon = prEl.querySelector('div');
+        const label = prEl.querySelector('p:last-child');
+        
+        if (i < currentStage) {
+            // Completed
+            prEl.className = 'flex items-center gap-3';
+            icon.className = 'w-7 h-7 rounded-full flex items-center justify-center bg-emerald-500';
+            icon.innerHTML = '<i class="fa-solid fa-check text-white text-[10px]"></i>';
+            label.textContent = 'Complete';
+        } else if (i === currentStage) {
+            // Current
+            prEl.className = 'flex items-center gap-3';
+            icon.className = 'w-7 h-7 rounded-full flex items-center justify-center bg-pri-100 dark:bg-pri-900';
+            icon.style.animation = 'pulse2 2s infinite';
+            icon.innerHTML = '<i class="fa-solid fa-arrow-right text-pri-600 dark:text-pri-300 text-[10px]"></i>';
+            label.textContent = 'In progress';
+        } else {
+            // Pending
+            prEl.className = 'flex items-center gap-3 opacity-40';
+            icon.className = 'w-7 h-7 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-700';
+            icon.style.animation = '';
+            icon.innerHTML = '<i class="fa-solid fa-circle text-gray-400 text-[6px]"></i>';
+            label.textContent = 'Pending';
+        }
+    }
+}
+
+// ============ PATIENT FUNCTIONS ============
+function confirmPatientPickup() {
+    document.getElementById('patient-confirm-pickup').disabled = true;
+    document.getElementById('patient-pickup-confirmed').classList.remove('hidden');
+    toast('Pickup confirmed! Escort has been notified.');
+}
+
+function confirmPatientEnd() {
+    document.getElementById('patient-confirm-end').disabled = true;
+    document.getElementById('patient-end-confirmed').classList.remove('hidden');
+    toast('Appointment completion confirmed!');
+}
+
+// ============ GUARDIAN FUNCTIONS ============
+function confirmGuardianPickup() {
+    document.getElementById('guardian-confirm-pickup').disabled = true;
+    document.getElementById('guardian-pickup-confirmed').classList.remove('hidden');
+    toast('Pickup confirmed! Escort has been notified.');
+}
+
+function confirmGuardianEnd() {
+    document.getElementById('guardian-confirm-end').disabled = true;
+    document.getElementById('guardian-end-confirmed').classList.remove('hidden');
+    toast('Appointment completion confirmed!');
+}
+
+// ============ ESCORT FUNCTIONS ============
 function verifyPickupCode() {
     const btn = document.getElementById('aa-verify-btn');
 
     if (btn.getAttribute('data-filled') !== 'true') {
+        // First click: Auto-fill code
         const digits = document.querySelectorAll('.aa-code-digit');
         digits[0].value = '0';
         digits[1].value = '3';
@@ -1644,6 +1937,7 @@ function verifyPickupCode() {
         btn.setAttribute('data-filled', 'true');
         toast('Code filled — click again to verify');
     } else {
+        // Second click: Verify
         const digits = document.querySelectorAll('.aa-code-digit');
         let code = '';
         digits.forEach(d => code += d.value);
@@ -1652,34 +1946,130 @@ function verifyPickupCode() {
             document.getElementById('aa-code-error').classList.add('hidden');
             document.getElementById('aa-code-success').classList.remove('hidden');
             btn.disabled = true;
-            toast('Pickup verified! Stage 1 complete.');
+            digits.forEach(d => d.disabled = true);
+            
+            toast('Pickup verified! Moving to Stage 2...');
+            
+            // Move to Stage 2 after delay
             setTimeout(() => {
-                document.getElementById('aa-stage-2').classList.remove('hidden');
-                document.getElementById('aa-stage-5').classList.remove('hidden');
-            }, 1000);
+                moveToStage(2);
+            }, 1500);
         } else {
             document.getElementById('aa-code-error').classList.remove('hidden');
             digits.forEach(d => d.value = '');
             btn.setAttribute('data-filled', 'false');
+            toast('Invalid code. Please try again.');
         }
     }
 }
 
-function handleStagePhoto(e, stage) {
-    toast(`Stage ${stage} photo uploaded (mock)`);
+function handleStagePhoto(event, stage) {
+    // Mock photo upload
+    const file = event.target.files[0];
+    if (file) {
+        toast(`Stage ${stage} photo uploaded (mock)`);
+        
+        // Show done state
+        document.getElementById(`s${stage}-upload-btn`).classList.add('hidden');
+        document.getElementById(`s${stage}-done`).classList.remove('hidden');
+    }
+}
+
+function confirmStage(stage) {
+    toast(`Stage ${stage} complete! Moving to next stage...`);
+    
+    setTimeout(() => {
+        moveToStage(stage + 1);
+    }, 1000);
+}
+
+function moveToStage(stage) {
+    aaCurrentStage = stage;
+    
+    // Hide current escort stages
+    for (let i = 1; i <= 5; i++) {
+        const stEl = document.getElementById('aa-stage-' + i + '-escort');
+        if (stEl) stEl.classList.add('hidden');
+    }
+    
+    // Show target stage
+    const targetEl = document.getElementById('aa-stage-' + stage + '-escort');
+    if (targetEl) targetEl.classList.remove('hidden');
+    
+    // Update progress tracker
+    updateProgressTracker(stage);
+    updateStageBadge(stage);
+    
+    // Start countdown for Stage 5
+    if (stage === 5) {
+        startSummaryCountdown();
+    }
+}
+
+function startSummaryCountdown() {
+    if (aaCountdownInterval) clearInterval(aaCountdownInterval);
+    
+    let totalSeconds = 5 * 60 * 60; // 5 hours in seconds
+    
+    aaCountdownInterval = setInterval(() => {
+        totalSeconds--;
+        
+        if (totalSeconds <= 0) {
+            clearInterval(aaCountdownInterval);
+            document.getElementById('aa-countdown').textContent = '0:00:00';
+            toast('Summary log time expired!');
+            return;
+        }
+        
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+        
+        document.getElementById('aa-countdown').textContent = 
+            `${hours}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }, 1000);
 }
 
 function submitSummaryLog() {
     const btn = document.getElementById('aa-submit-log-btn');
 
     if (btn.getAttribute('data-filled') !== 'true') {
+        // First click: Auto-fill
         document.getElementById('sum-done').value = 'Cardiology consultation completed. ECG and blood pressure checked.';
         document.getElementById('sum-notes').value = 'Doctor advised to continue current medication. Monitor blood pressure daily.';
         document.getElementById('sum-actions').value = 'Follow-up appointment in 3 months. Take medication twice daily with meals.';
         btn.setAttribute('data-filled', 'true');
         toast('Summary filled — click again to submit');
     } else {
-        toast('Summary log submitted!');
+        // Second click: Submit
+        const done = document.getElementById('sum-done').value;
+        const notes = document.getElementById('sum-notes').value;
+        const actions = document.getElementById('sum-actions').value;
+        
+        if (!done || !notes || !actions) {
+            toast('Please fill all three questions');
+            return;
+        }
+        
+        // Update guardian report if viewing as guardian
+        document.getElementById('report-done').textContent = done;
+        document.getElementById('report-notes').textContent = notes;
+        document.getElementById('report-actions').textContent = actions;
+        
+        // Show success
+        btn.disabled = true;
+        document.getElementById('aa-log-done').classList.remove('hidden');
+        
+        // Stop countdown
+        if (aaCountdownInterval) {
+            clearInterval(aaCountdownInterval);
+            aaCountdownInterval = null;
+        }
+        
+        toast('Summary log submitted successfully!');
+        
+        // Update progress to complete
+        updateProgressTracker(6); // All stages complete
     }
 }
 
