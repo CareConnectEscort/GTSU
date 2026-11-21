@@ -4,15 +4,27 @@ A comprehensive interactive demo of the CareConnect Hong Kong elderly escort ser
 
 ## 🌐 Live Demo
 
-**View the demo:** [Coming soon - enable GitHub Pages]
+### **[🚀 VIEW LIVE DEMO](https://careconnectescort.github.io/GTSU/index_demo.html)**
 
-To enable GitHub Pages:
-1. Go to [Repository Settings > Pages](../../settings/pages)
-2. Source: Deploy from branch
-3. Branch: `isem` | Folder: `/` (root)
-4. Click "Save"
-5. Wait 2-3 minutes
-6. Demo will be live at: `https://careconnectescort.github.io/GTSU/index_demo.html`
+**Direct URL:** `https://careconnectescort.github.io/GTSU/index_demo.html`
+
+> **Note:** If you see a 404 error, GitHub Pages needs to be activated first (see below).
+
+### Activating GitHub Pages (One-time setup)
+
+**For repository administrators:**
+
+1. **Go to:** [Repository Settings > Pages](https://github.com/CareConnectEscort/GTSU/settings/pages)
+2. **Under "Build and deployment":**
+   - Source: **Deploy from a branch**
+   - Branch: **`isem`** ← Select this
+   - Folder: **`/ (root)`** ← Keep this
+   - Click **"Save"**
+3. **Wait 2-3 minutes** for GitHub to deploy
+4. **Refresh the settings page** - you'll see: "Your site is live at..."
+5. **Demo is now accessible** at the URL above
+
+Once activated, the demo will be publicly accessible to anyone with the link.
 
 ## 📱 What's Inside
 
